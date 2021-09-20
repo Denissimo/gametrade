@@ -16,9 +16,15 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Entity" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\gametrade\src\Entity" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -28,7 +34,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1632145611825</updated>
-      <workItem from="1632145612907" duration="1168000" />
+      <workItem from="1632145612907" duration="2873000" />
     </task>
     <servers />
   </component>
@@ -36,13 +42,25 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="779" y="263" key="NewPhpClassDialog" timestamp="1632145745156">
+    <state x="553" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1632147995255">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="779" y="263" key="NewPhpClassDialog/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632145745156" />
+    <state x="553" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632147995255" />
+    <state x="779" y="263" key="NewPhpClassDialog" timestamp="1632148275982">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="779" y="263" key="NewPhpClassDialog/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632148275982" />
     <state x="795" y="463" key="NewPhpFileDialog" timestamp="1632145760943">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="795" y="463" key="NewPhpFileDialog/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632145760943" />
+    <state x="830" y="400" key="com.intellij.database.actions.DdlActions$CreateObject$1" timestamp="1632148015230">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="830" y="400" key="com.intellij.database.actions.DdlActions$CreateObject$1/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632148015230" />
+    <state x="669" y="272" width="581" height="534" key="find.popup" timestamp="1632149057495">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="669" y="272" width="581" height="534" key="find.popup/0.0.1920.1080/3840.0.1680.1050@0.0.1920.1080" timestamp="1632149057495" />
   </component>
 </project>
