@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+    {% block stylesheets %}
+        {% include('components/styles.html.twig') %}
+        {#{{ encore_entry_link_tags('app') }}#}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% include('components/scripts.html.twig') %}
+        {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+</head>
+<body>
+<div class="container pt-2 mt-3 rounded-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info rounded-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="{{ asset('images/logo/apple-touch-icon.png') }}" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+{#                        <a class="nav-link" href="{{ path('account') }}">Account</a>#}
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Link
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Link</a>
+                    </li>
+                </ul>
+                {% if app.user %}
+{#                    <a class="nav-link" href="{{ path('account') }}">{{ app.user.userIdentifier }} </a> &nbsp; <a href="{{ path('app_logout') }}"><button class="btn btn-outline-danger" type="submit">Logout</button></a>#}
+                {% else %}
+{#                    <a href="{{ path('app_login') }}"> <button class="btn btn-outline-primary" type="submit">Login</button></a>#}
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('main') }}">Home</a></li>
+{#            <li class="breadcrumb-item"><a href="{{ path('account') }}">Account</a></li>#}
+        </ol>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html>

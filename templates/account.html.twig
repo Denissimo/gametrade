@@ -1,0 +1,78 @@
+{% extends 'finance.html.twig' %}
+{% block body %}
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header">Account</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Send referal code to your friend</h5>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="referal_link" value="{{ url_self ~ '/register?invitation_code=' ~ user.hash }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#" class="btn btn-primary" id="copy_btn">Copy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            {% if accurals is defined and accurals is not empty %}
+                {% set children = 0 %}
+                {% set awards = 0 %}
+                {% set amountUsd = 0 %}
+                {% set amountBtc = 0 %}
+                {% set amountEth = 0 %}
+                <table class="table table-striped">
+                    <tr class="bg-info">
+                        <th>Level</th>
+                        <th>Children</th>
+                        <th>Awards</th>
+                        <th>Amount USD</th>
+                        <th>Amount BTC</th>
+                        <th>Amount ETH</th>
+                    </tr>
+                    {% for num, accural in accurals %}
+                        {% set children = children + accural.children %}
+                        {% set awards = awards + accural.awards %}
+                        {% set amountUsd = amountUsd + accural.amountUsd %}
+                        {% set amountBtc = amountBtc + accural.amountBtc %}
+                        {% set amountEth = amountEth + accural.amountEth %}
+                        <tr>
+                            <td>{{ accural.level }}</td>
+                            <td>{{ accural.children }} </td>
+                            <td>{{ accural.awards }} </td>
+                            <td>{{ accural.amountUsd }} </td>
+                            <td>{{ accural.amountBtc }} </td>
+                            <td>{{ accural.amountEth }} </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><b>Total:</b></td>
+                        <td><b>{{ children }} </b></td>
+                        <td><b>{{ awards }} </b></td>
+                        <td><b>{{ amountUsd }} </b></td>
+                        <td><b>{{ amountBtc }} </b></td>
+                        <td><b>{{ amountEth }} </b></td>
+                    </tr>
+                </table>
+            {% endif %}
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-12">
+                <a href="/xlsx">
+                    <img src="{{ asset('images/logo/logo-excel.png') }}" width="90px">
+                </a>
+            </div>
+        </div>
+        {# {{ dump(user) }} #}
+        {# {{ dump(children) }} #}
+        {# {{ dump(accurals) }} #}
+    </div>
+{% endblock %}
