@@ -1,0 +1,16 @@
+sonata_admin:
+    title: 'Панель администратора'
+    title_logo: '/images/logo/apple-touch-icon.png'
+    dashboard:
+        blocks:
+            - { type: sonata.admin.block.admin_list, position: left }
+    security:
+        handler: sonata.admin.security.handler.role
+
+        role_admin: ROLE_ADMIN
+        role_super_admin: ROLE_SUPER_ADMIN
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]

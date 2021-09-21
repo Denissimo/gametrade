@@ -2,25 +2,19 @@
 
 namespace App\Entity;
 
-use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
+use Sonata\UserBundle\Entity\BaseGroup;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_group")
+ * @ORM\Table(name="fos_group")
  */
 class UserGroup extends BaseGroup
 {
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
 }
