@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=AccountRepository::class)
@@ -11,9 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Account
 {
     /**
+     * @var UuidInterface
+     *
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
@@ -57,9 +61,17 @@ class Account
      */
     private $updatedAt;
 
-    public function getId(): ?int
+    public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    /**
+     * @param UuidInterface $id
+     */
+    public function setId(UuidInterface $id): void
+    {
+        $this->id = $id;
     }
 
     public function getOwner(): ?User

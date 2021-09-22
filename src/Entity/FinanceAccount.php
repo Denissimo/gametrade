@@ -6,6 +6,7 @@ use App\Repository\FinanceAccountRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DateTimeImmutable;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=FinanceAccountRepository::class)
@@ -13,9 +14,12 @@ use DateTimeImmutable;
 class FinanceAccount
 {
     /**
+     * @var UuidInterface
+     *
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
@@ -46,10 +50,17 @@ class FinanceAccount
      */
     private $updatedAt;
 
-
-    public function getId(): ?int
+    public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    /**
+     * @param UuidInterface $id
+     */
+    public function setId(UuidInterface $id): void
+    {
+        $this->id = $id;
     }
 
     public function getOwner(): ?User
