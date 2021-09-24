@@ -155,4 +155,19 @@ class User extends BaseUser implements UserInterface
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getFioUsername();
+    }
+
+    public function getFioUsername(): string
+    {
+        return sprintf(
+            '%s %s (%s)',
+            $this->firstname,
+            $this->lastname,
+            $this->username
+        );
+    }
 }

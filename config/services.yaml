@@ -38,3 +38,9 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    admin.finance_account:
+        class: App\Admin\FinanceAccountAdmin
+        arguments: [~, App\Entity\FinanceAccount, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'FinanceAccount', group: "Finance", icon: '<i class="fa fa-money" aria-hidden="true"></i>' }
