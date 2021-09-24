@@ -38,6 +38,11 @@ class User extends BaseUser implements UserInterface
      */
     private $accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="operator")
+     */
+    private $tasks;
+
 
     public function __construct()
     {
@@ -45,6 +50,7 @@ class User extends BaseUser implements UserInterface
         // your own logic
         $this->financeAccounts = new ArrayCollection();
         $this->accounts = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
     }
 
 
@@ -114,6 +120,36 @@ class User extends BaseUser implements UserInterface
             // set the owning side to null (unless already changed)
             if ($account->getOwner() === $this) {
                 $account->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setOperator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getOperator() === $this) {
+                $task->setOperator(null);
             }
         }
 

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -53,13 +56,31 @@ class Account
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Creditnails::class, mappedBy="account", orphanRemoval=true)
+     */
+    private $creditnails;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="account")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->creditnails = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId(): UuidInterface
     {
@@ -166,6 +187,66 @@ class Account
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Creditnails[]
+     */
+    public function getCreditnails(): Collection
+    {
+        return $this->creditnails;
+    }
+
+    public function addCreditnail(Creditnails $creditnail): self
+    {
+        if (!$this->creditnails->contains($creditnail)) {
+            $this->creditnails[] = $creditnail;
+            $creditnail->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreditnail(Creditnails $creditnail): self
+    {
+        if ($this->creditnails->removeElement($creditnail)) {
+            // set the owning side to null (unless already changed)
+            if ($creditnail->getAccount() === $this) {
+                $creditnail->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getAccount() === $this) {
+                $task->setAccount(null);
+            }
+        }
 
         return $this;
     }

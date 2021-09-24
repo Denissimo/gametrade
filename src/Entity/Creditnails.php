@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\GameRepository;
+use App\Repository\CreditnailsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=GameRepository::class)
+ * @ORM\Entity(repositoryClass=CreditnailsRepository::class)
  */
-class Game
+class Creditnails
 {
     /**
      * @var UuidInterface
@@ -23,29 +23,35 @@ class Game
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="creditnails")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $code;
+    private $account;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $username;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $price;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $url;
+    private $isTest;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $description;
+    private $isActive;
+
+    /**
+     * @ORM\Column(type="date_immutable", nullable=true)
+     */
+    private $validTill;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -72,62 +78,74 @@ class Game
         $this->id = $id;
     }
 
-    public function getCode(): ?string
+    public function getAccount(): ?Account
     {
-        return $this->code;
+        return $this->account;
     }
 
-    public function setCode(?string $code): self
+    public function setAccount(?Account $account): self
     {
-        $this->code = $code;
+        $this->account = $account;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(?string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPassword(): ?string
     {
-        return $this->price;
+        return $this->password;
     }
 
-    public function setPrice(?int $price): self
+    public function setPassword(string $password): self
     {
-        $this->price = $price;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getIsTest(): ?bool
     {
-        return $this->url;
+        return $this->isTest;
     }
 
-    public function setUrl(?string $url): self
+    public function setIsTest(bool $isTest): self
     {
-        $this->url = $url;
+        $this->isTest = $isTest;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getIsActive(): ?bool
     {
-        return $this->description;
+        return $this->isActive;
     }
 
-    public function setDescription(?string $description): self
+    public function setIsActive(bool $isActive): self
     {
-        $this->description = $description;
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getValidTill(): ?\DateTimeImmutable
+    {
+        return $this->validTill;
+    }
+
+    public function setValidTill(?\DateTimeImmutable $validTill): self
+    {
+        $this->validTill = $validTill;
 
         return $this;
     }

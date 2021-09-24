@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\GameRepository;
+use App\Repository\TransactionsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=GameRepository::class)
+ * @ORM\Entity(repositoryClass=TransactionsRepository::class)
  */
-class Game
+class Transactions
 {
     /**
      * @var UuidInterface
@@ -23,29 +23,30 @@ class Game
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $code;
+    private $type;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=FinanceAccount::class, inversedBy="transactions")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $name;
+    private $finance;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Account::class)
      */
-    private $price;
+    private $account;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $url;
+    private $amount;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $description;
+    private $status;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -72,62 +73,62 @@ class Game
         $this->id = $id;
     }
 
-    public function getCode(): ?string
+    public function getType(): ?int
     {
-        return $this->code;
+        return $this->type;
     }
 
-    public function setCode(?string $code): self
+    public function setType(int $type): self
     {
-        $this->code = $code;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getFinance(): ?FinanceAccount
     {
-        return $this->name;
+        return $this->finance;
     }
 
-    public function setName(?string $name): self
+    public function setFinance(?FinanceAccount $finance): self
     {
-        $this->name = $name;
+        $this->finance = $finance;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getAccount(): ?Account
     {
-        return $this->price;
+        return $this->account;
     }
 
-    public function setPrice(?int $price): self
+    public function setAccount(?Account $account): self
     {
-        $this->price = $price;
+        $this->account = $account;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getAmount(): ?int
     {
-        return $this->url;
+        return $this->amount;
     }
 
-    public function setUrl(?string $url): self
+    public function setAmount(int $amount): self
     {
-        $this->url = $url;
+        $this->amount = $amount;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getStatus(): ?int
     {
-        return $this->description;
+        return $this->status;
     }
 
-    public function setDescription(?string $description): self
+    public function setStatus(int $status): self
     {
-        $this->description = $description;
+        $this->status = $status;
 
         return $this;
     }
