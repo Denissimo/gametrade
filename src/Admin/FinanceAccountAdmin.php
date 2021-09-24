@@ -15,7 +15,7 @@ class FinanceAccountAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('user', ModelAutocompleteType::class, [
+            ->add('owner', ModelAutocompleteType::class, [
                 'property' => 'username',
                 'class' => User::class,
                 'required' => false
@@ -28,7 +28,7 @@ class FinanceAccountAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('user')
+            ->add('owner')
             ->add('amount')
             ->add('active')
         ;
@@ -36,7 +36,7 @@ class FinanceAccountAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->add('user')
+        $listMapper->add('owner')
         ->add('amount')
         ->add('active', null, ['editable' => true])
         ->add(

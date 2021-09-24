@@ -1,0 +1,15 @@
+Action: Действие
+Id: Номер
+Name: Имя
+Value: Значение
+
+Created At: Создано
+Updated At: Изменено
+
+Finance Account List: Список счетов
+Finance Account Create: Создать счёт
+FinanceAccounts: Счета
+FinanceAccount: Счет
+Owner: Владелец
+Amount: Сумма
+Active: Активно

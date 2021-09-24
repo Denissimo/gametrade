@@ -1,0 +1,8 @@
+
+#breadcrumb:
+breadcrumb.link_sonata_user_user_list: Список пользователей
+breadcrumb.link_sonata_user_group_list: Список групп
+
+list:
+  label_middlename: Отчество
+  label_airchannel_id: Идентиф.
