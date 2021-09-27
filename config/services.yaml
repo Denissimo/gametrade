@@ -75,3 +75,9 @@ services:
         arguments: [~, App\Entity\Credential, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Credentials', group: "Game Data" }
+
+    admin.task_type:
+        class: App\Admin\TaskTypeAdmin
+        arguments: [~, App\Entity\TaskType, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Task Types', group: "Tasks", icon: '<i class="fa fa-tasks" aria-hidden="true"></i>' }
