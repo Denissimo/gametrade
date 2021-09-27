@@ -81,3 +81,9 @@ services:
         arguments: [~, App\Entity\TaskType, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Task Types', group: "Tasks", icon: '<i class="fa fa-tasks" aria-hidden="true"></i>' }
+
+    admin.task:
+        class: App\Admin\TaskAdmin
+        arguments: [~, App\Entity\Task, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Tasks', group: "Tasks" }

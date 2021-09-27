@@ -12,6 +12,26 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Task
 {
+    private const STATUS_NEW = 0; //Новый
+    private const STATUS_OFFERED = 1; //Предложен
+    private const STATUS_ACCEPTED = 2; //Принят
+    private const STATUS_IN_WORK = 3; //В работе
+    private const STATUS_OVERDUE = 4; //Просрочен
+    private const STATUS_DONE = 5; //Готов
+    private const STATUS_REJECTED = 6; //Отвергнут
+    private const STATUS_CANCELLED = 7; //Отменён
+
+    public static $statuses = [
+        self::STATUS_NEW => 'Новый',
+        self::STATUS_OFFERED => 'Предложен',
+        self::STATUS_ACCEPTED => 'Принят',
+        self::STATUS_IN_WORK => 'В работе',
+        self::STATUS_OVERDUE => 'Просрочен',
+        self::STATUS_DONE => 'Готов',
+        self::STATUS_REJECTED => 'Отвергнут',
+        self::STATUS_CANCELLED => 'Отменён'
+    ];
+
     /**
      * @var UuidInterface
      *
@@ -33,7 +53,7 @@ class Task
     private $operator;
 
     /**
-     * @ORM\Column(type="date_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $deadLine;
 
