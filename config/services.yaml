@@ -51,6 +51,12 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Transactions', group: "Finance" }
 
+    admin.tarif:
+        class: App\Admin\TarifAdmin
+        arguments: [~, App\Entity\Tarif, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Tarifs', group: "Finance" }
+
 
     admin.game:
         class: App\Admin\GameAdmin
