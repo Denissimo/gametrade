@@ -3,42 +3,54 @@
 
 namespace App\Admin;
 
-use App\Entity\User;
+use App\Entity\FinanceAccount;
+use App\Entity\Transactions;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class FinanceAccountAdmin extends AbstractAdmin
+class TransactionsAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('owner', ModelAutocompleteType::class, [
-                'property' => 'username',
-                'class' => User::class,
-                'required' => false
+            ->add('finance', ModelType::class, [
+                'class' => FinanceAccount::class,
+                'choice_translation_domain' => false,
+                'required' => true
             ])
-            ->add('amount')
-            ->add('active');
+            ->add('type', ChoiceType::class, [
+                'choices' => array_flip(Transactions::$types)
+            ])
+            ->add('status', ChoiceType::class, [
+                'choices' => array_flip(Transactions::$statuses)
+            ])
+//            ->add('account')
+            ->add('amount');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('owner')
-            ->add('amount')
-            ->add('active');
+            ->add('finance')
+            ->add('amount');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->add('id')
-            ->add('owner')
+            ->add('finance')
+            ->add('type', 'choice', [
+                'choices' => Transactions::$types
+            ])
+            ->add('status', 'choice', [
+                'choices' => Transactions::$statuses
+            ])
             ->add('amount')
-            ->add('active', null, ['editable' => true])
             ->add(
                 'createdAt',
                 null,

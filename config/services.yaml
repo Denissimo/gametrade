@@ -44,3 +44,9 @@ services:
         arguments: [~, App\Entity\FinanceAccount, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'FinanceAccounts', group: "Finance", icon: '<i class="fa fa-money" aria-hidden="true"></i>' }
+
+    admin.transaction:
+        class: App\Admin\TransactionsAdmin
+        arguments: [~, App\Entity\Transactions, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Transactions', group: "Finance" }

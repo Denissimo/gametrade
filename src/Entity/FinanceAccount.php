@@ -164,4 +164,19 @@ class FinanceAccount
 
         return $this;
     }
+
+    public function getUuidFio()
+    {
+        return sprintf(
+            'UUID: %s; ФИО: %s',
+            $this->getId(),
+            $this->getOwner()
+                ->getFioUsername()
+        );
+    }
+
+    public function __toString()
+    {
+        return $this->getUuidFio();
+    }
 }

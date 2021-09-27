@@ -3,6 +3,10 @@ Id: Номер
 Name: Имя
 Value: Значение
 
+Type: Тип
+Status: Статус
+
+
 Created At: Создано
 Updated At: Изменено
 
@@ -13,3 +17,11 @@ FinanceAccount: Счет
 Owner: Владелец
 Amount: Сумма
 Active: Активно
+
+
+
+Transactions List: Список транзакций
+Transaction Create: Создать транзакцию
+Transactions: Транзакции
+Transaction: Транзакция
+Finance: Счет
