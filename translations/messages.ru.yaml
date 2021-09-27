@@ -1,7 +1,10 @@
 Action: Действие
 Id: Номер
+Url: URL
+Code: Код
 Name: Имя
 Value: Значение
+Description: Описание
 
 Type: Тип
 Status: Статус
@@ -21,7 +24,6 @@ Amount: Сумма
 Active: Активно
 
 
-
 Transaction List: Список транзакций
 Transaction Create: Создать транзакцию
 Transactions: Транзакции
@@ -36,4 +38,4 @@ Account: Аккаунт
 Game List: Список Игр
 Game Create: Создать Игру
 Game: Игра
-Games: Игр
+Games: Игры

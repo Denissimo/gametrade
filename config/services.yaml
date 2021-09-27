@@ -52,8 +52,14 @@ services:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Transactions', group: "Finance" }
 
 
+    admin.game:
+        class: App\Admin\GameAdmin
+        arguments: [~, App\Entity\Game, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Games', group: "Game Data", icon: '<i class="fa fa-gamepad" aria-hidden="true"></i>' }
+
     admin.account:
         class: App\Admin\AccountAdmin
         arguments: [~, App\Entity\Account, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Accounts', group: "Game Data", icon: '<i class="fa fa-gamepad" aria-hidden="true"></i>' }
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Accounts', group: "Game Data" }
