@@ -14,6 +14,20 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Account
 {
+    private const STATUS_NEW = 0; //Новый
+    private const STATUS_RESERVED = 1; //Зарезервирован
+    private const STATUS_IN_WORK = 2; //В реботе
+    private const STATUS_DONE = 3; //Готов
+    private const STATUS_FROZEN = 4; //Заморожен
+
+    public static $statuses = [
+        self::STATUS_NEW => 'Новый',
+        self::STATUS_RESERVED => 'Зарезервирован',
+        self::STATUS_IN_WORK => 'В работе',
+        self::STATUS_DONE => 'Готов',
+        self::STATUS_FROZEN => 'Заморожен'
+    ];
+
     /**
      * @var UuidInterface
      *
@@ -249,5 +263,10 @@ class Account
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id->toString();
     }
 }

@@ -50,3 +50,10 @@ services:
         arguments: [~, App\Entity\Transaction, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Transactions', group: "Finance" }
+
+
+    admin.account:
+        class: App\Admin\AccountAdmin
+        arguments: [~, App\Entity\Account, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Accounts', group: "Game Data", icon: '<i class="fa fa-gamepad" aria-hidden="true"></i>' }

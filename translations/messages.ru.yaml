@@ -5,7 +5,9 @@ Value: Значение
 
 Type: Тип
 Status: Статус
-
+Operator: Оператор
+Price: Цена
+External Id: Внешний ID
 
 Created At: Создано
 Updated At: Изменено
@@ -25,3 +27,13 @@ Transaction Create: Создать транзакцию
 Transactions: Транзакции
 Transaction: Транзакция
 Finance: Счет
+
+Account List: Список аккаунтов
+Account Create: Создать Аккаунт
+Accounts: Аккаунты
+Account: Аккаунт
+
+Game List: Список Игр
+Game Create: Создать Игру
+Game: Игра
+Games: Игр
