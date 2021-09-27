@@ -81,9 +81,9 @@ class Account
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Creditnail::class, mappedBy="account", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Credential::class, mappedBy="account", orphanRemoval=true)
      */
-    private $creditnails;
+    private $credentials;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="account")
@@ -92,7 +92,7 @@ class Account
 
     public function __construct()
     {
-        $this->creditnails = new ArrayCollection();
+        $this->credentials = new ArrayCollection();
         $this->tasks = new ArrayCollection();
     }
 
@@ -206,29 +206,29 @@ class Account
     }
 
     /**
-     * @return Collection|Creditnail[]
+     * @return Collection|Credential[]
      */
-    public function getCreditnails(): Collection
+    public function getCredentials(): Collection
     {
-        return $this->creditnails;
+        return $this->credentials;
     }
 
-    public function addCreditnail(Creditnail $creditnail): self
+    public function addCredential(Credential $credential): self
     {
-        if (!$this->creditnails->contains($creditnail)) {
-            $this->creditnails[] = $creditnail;
-            $creditnail->setAccount($this);
+        if (!$this->credentials->contains($credential)) {
+            $this->credentials[] = $credential;
+            $credential->setAccount($this);
         }
 
         return $this;
     }
 
-    public function removeCreditnail(Creditnail $creditnail): self
+    public function removeCredential(Credential $credential): self
     {
-        if ($this->creditnails->removeElement($creditnail)) {
+        if ($this->credentials->removeElement($credential)) {
             // set the owning side to null (unless already changed)
-            if ($creditnail->getAccount() === $this) {
-                $creditnail->setAccount(null);
+            if ($credential->getAccount() === $this) {
+                $credential->setAccount(null);
             }
         }
 

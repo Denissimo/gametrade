@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CreditnailRepository;
+use App\Repository\CredentialRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=CreditnailRepository::class)
+ * @ORM\Entity(repositoryClass=CredentialRepository::class)
  */
-class Creditnail
+class Credential
 {
     /**
      * @var UuidInterface
@@ -23,7 +23,7 @@ class Creditnail
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="creditnails")
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="credentials")
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;

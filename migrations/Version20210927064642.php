@@ -21,14 +21,14 @@ final class Version20210927064642 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE IF EXISTS transactions RENAME TO transaction;');
-        $this->addSql('ALTER TABLE IF EXISTS creditnails RENAME TO creditnail;');
+        $this->addSql('ALTER TABLE IF EXISTS creditnails RENAME TO credential;');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE IF EXISTS transaction RENAME TO transactions;');
-        $this->addSql('ALTER TABLE IF EXISTS creditnail RENAME TO creditnails;');
+        $this->addSql('ALTER TABLE IF EXISTS credential RENAME TO creditnails;');
 
     }
 }
