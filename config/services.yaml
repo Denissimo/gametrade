@@ -63,3 +63,9 @@ services:
         arguments: [~, App\Entity\Account, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Accounts', group: "Game Data" }
+
+    admin.credential:
+        class: App\Admin\CredentialAdmin
+        arguments: [~, App\Entity\Credential, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label_translator_strategy: "sonata.admin.label.strategy.native", label: 'Credentials', group: "Game Data" }

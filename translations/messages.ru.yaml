@@ -6,6 +6,13 @@ Name: Имя
 Value: Значение
 Description: Описание
 
+Is Active: Активно
+Is Test: Тест
+Valid Till: Действует до
+
+Username: Имя Пользователя
+Password: Пароль
+
 Type: Тип
 Status: Статус
 Operator: Оператор
@@ -39,3 +46,8 @@ Game List: Список Игр
 Game Create: Создать Игру
 Game: Игра
 Games: Игры
+
+Credential List: Список Учётных Записей
+Credential Create: Создать Учётную Запись
+Credential: Учётная Запись
+Credentials: Учётные Записи
