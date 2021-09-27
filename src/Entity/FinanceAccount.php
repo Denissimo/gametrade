@@ -53,7 +53,7 @@ class FinanceAccount
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="finance", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="finance", orphanRemoval=true)
      */
     private $transactions;
 
@@ -136,14 +136,14 @@ class FinanceAccount
     }
 
     /**
-     * @return Collection|Transactions[]
+     * @return Collection|Transaction[]
      */
     public function getTransactions(): Collection
     {
         return $this->transactions;
     }
 
-    public function addTransaction(Transactions $transaction): self
+    public function addTransaction(Transaction $transaction): self
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions[] = $transaction;
@@ -153,7 +153,7 @@ class FinanceAccount
         return $this;
     }
 
-    public function removeTransaction(Transactions $transaction): self
+    public function removeTransaction(Transaction $transaction): self
     {
         if ($this->transactions->removeElement($transaction)) {
             // set the owning side to null (unless already changed)

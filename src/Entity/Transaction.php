@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TransactionsRepository;
+use App\Repository\TransactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=TransactionsRepository::class)
+ * @ORM\Entity(repositoryClass=TransactionRepository::class)
  */
-class Transactions
+class Transaction
 {
     private const TYPE_DEBIT = 0; //Списание
     private const TYPE_CREDIT = 1; //Зачисление

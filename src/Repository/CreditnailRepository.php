@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Creditnails;
+use App\Entity\Creditnail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Creditnails|null find($id, $lockMode = null, $lockVersion = null)
- * @method Creditnails|null findOneBy(array $criteria, array $orderBy = null)
- * @method Creditnails[]    findAll()
- * @method Creditnails[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Creditnail|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Creditnail|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Creditnail[]    findAll()
+ * @method Creditnail[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CreditnailsRepository extends ServiceEntityRepository
+class CreditnailRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Creditnails::class);
+        parent::__construct($registry, Creditnail::class);
     }
 
     // /**
-    //  * @return Creditnails[] Returns an array of Creditnails objects
+    //  * @return Creditnail[] Returns an array of Creditnail objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CreditnailsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Creditnails
+    public function findOneBySomeField($value): ?Creditnail
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

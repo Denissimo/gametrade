@@ -67,7 +67,7 @@ class Account
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Creditnails::class, mappedBy="account", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Creditnail::class, mappedBy="account", orphanRemoval=true)
      */
     private $creditnails;
 
@@ -192,14 +192,14 @@ class Account
     }
 
     /**
-     * @return Collection|Creditnails[]
+     * @return Collection|Creditnail[]
      */
     public function getCreditnails(): Collection
     {
         return $this->creditnails;
     }
 
-    public function addCreditnail(Creditnails $creditnail): self
+    public function addCreditnail(Creditnail $creditnail): self
     {
         if (!$this->creditnails->contains($creditnail)) {
             $this->creditnails[] = $creditnail;
@@ -209,7 +209,7 @@ class Account
         return $this;
     }
 
-    public function removeCreditnail(Creditnails $creditnail): self
+    public function removeCreditnail(Creditnail $creditnail): self
     {
         if ($this->creditnails->removeElement($creditnail)) {
             // set the owning side to null (unless already changed)

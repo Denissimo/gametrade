@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CreditnailsRepository;
+use App\Repository\CreditnailRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=CreditnailsRepository::class)
+ * @ORM\Entity(repositoryClass=CreditnailRepository::class)
  */
-class Creditnails
+class Creditnail
 {
     /**
      * @var UuidInterface

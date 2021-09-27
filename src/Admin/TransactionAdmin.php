@@ -4,7 +4,7 @@
 namespace App\Admin;
 
 use App\Entity\FinanceAccount;
-use App\Entity\Transactions;
+use App\Entity\Transaction;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class TransactionsAdmin extends AbstractAdmin
+class TransactionAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -24,10 +24,10 @@ class TransactionsAdmin extends AbstractAdmin
                 'required' => true
             ])
             ->add('type', ChoiceType::class, [
-                'choices' => array_flip(Transactions::$types)
+                'choices' => array_flip(Transaction::$types)
             ])
             ->add('status', ChoiceType::class, [
-                'choices' => array_flip(Transactions::$statuses)
+                'choices' => array_flip(Transaction::$statuses)
             ])
 //            ->add('account')
             ->add('amount');
@@ -45,10 +45,10 @@ class TransactionsAdmin extends AbstractAdmin
         $listMapper->add('id')
             ->add('finance')
             ->add('type', 'choice', [
-                'choices' => Transactions::$types
+                'choices' => Transaction::$types
             ])
             ->add('status', 'choice', [
-                'choices' => Transactions::$statuses
+                'choices' => Transaction::$statuses
             ])
             ->add('amount')
             ->add(
