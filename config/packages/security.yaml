@@ -35,6 +35,10 @@ security:
                 failure_path: null
             logout: true
             anonymous: true
+            guard:
+                provider: fos_userbundle
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
