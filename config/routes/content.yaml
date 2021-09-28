@@ -1,3 +1,19 @@
 main:
     path: /
     controller: App\Controller\ContentController::buildMain
+
+account:
+    path: /account
+    controller: App\Controller\ContentController::buildAccount
+
+user:
+    path: /user
+    controller: App\Controller\ContentController::buildUser
+
+manager:
+    path: /manager
+    controller: App\Controller\ContentController::buildManager
+
+operator:
+    path: /operator
+    controller: App\Controller\ContentController::buildOperator

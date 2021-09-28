@@ -16,6 +16,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User extends BaseUser implements UserInterface
 {
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    public const ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT = 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT';
+    public const ROLE_OPERATOR = 'ROLE_OPERATOR';
+    public const ROLE_MANAGER = 'ROLE_MANAGER';
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -169,5 +174,10 @@ class User extends BaseUser implements UserInterface
             $this->lastname,
             $this->username
         );
+    }
+
+    public function hasRole($role)
+    {
+        return parent::hasRole($role);
     }
 }
