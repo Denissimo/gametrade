@@ -19,16 +19,39 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @param $value
+     *
+     * @return array
+     */
+    public function loadByRoleAsArray($value)
+    {
+        $operators = $this->loadByRole($value);
+        $operatorList = [];
+
+        foreach ($operators as $operator) {
+            $operatorList[$operator->getId()] = $operator->getFioUsername();
+        }
+
+        return $operatorList;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return User[]|array
+     */
     public function loadByRole($value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.roles ~ :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-            ;
+        $qb = $this->createQueryBuilder('u');
+        $qb->andWhere(
+            $qb->expr()->like('u.roles', ':roles')
+        )
+            ->setParameter('roles', '%"' . $value . '"%')
+            ->orderBy('u.id', 'ASC');
+
+        return $qb->getQuery()
+            ->getResult();
     }
 
     // /**

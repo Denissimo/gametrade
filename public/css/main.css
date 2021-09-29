@@ -22,3 +22,7 @@ body {
     box-shadow:         2px 2px 15px 0px rgba(50, 50, 50, 0.75);
     border-radius: 40px;
 }
+
+.inline_elem{
+    display: flex;
+}

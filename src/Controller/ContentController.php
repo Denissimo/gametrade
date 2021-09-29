@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\ManagerTaskOfferFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -104,7 +106,7 @@ class ContentController extends AbstractController
         return $this->render('operator.html.twig', []);
     }
 
-    public function buildManager()
+    public function buildManager(Request $request)
     {
         /** @var ?User $user */
         $user = $this->tokenStorage->getToken()->getUser();
@@ -112,12 +114,22 @@ class ContentController extends AbstractController
             ->getRepository(Task::class)
             ->findByManager($user);
 
-//        $operator = $this->getDoctrine()
-//            ->getRepository(User::class)
-//            ->loadByRole(User::ROLE_OPERATOR);
+        $operators = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->loadByRole(User::ROLE_OPERATOR);
+
+
+//        $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
+        $all = $request->request->all();
+//        if ($formTaskOffer->isSubmitted() && $formTaskOffer->isValid()) {
+//
+//        }
+//        $formTaskOffer->handleRequest($request);
 
         return $this->render('manager.html.twig', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
+//            'form_task_offer' => $formTaskOffer->createView(),
+            'operators' => $operators
         ]);
     }
 }
