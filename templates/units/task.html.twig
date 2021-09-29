@@ -1,0 +1,31 @@
+{% block content %}
+    <tr>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Оператор</th>
+        <th>Тип</th>
+        <th>Аккаунт</th>
+        <th>Крайний срок</th>
+        <th>Статус</th>
+        <th>Создано</th>
+        <th>Изменено</th>
+    </tr>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.name }}</td>
+            <td>Оператор</td>
+            <td>{{ task.type.name }}</td>
+            <td>
+                {% if task.account is defined and task.account is not empty %}
+                    {{ task.account.id }}
+                {% endif %}
+            </td>
+            <td>{{ task.deadLine|date("d.m.Y") }}</td>
+{#            <td>{{ dump(constant('App\\Entity\\Task::STATUS_REJECTED')) }}</td>#}
+            <td>{{ task.statusName }}</td>
+            <td>{{ task.createdAt|date("d.m.Y") }}</td>
+            <td>{{ task.updatedAt|date("d.m.Y") }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

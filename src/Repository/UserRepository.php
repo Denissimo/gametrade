@@ -2,30 +2,29 @@
 
 namespace App\Repository;
 
-use App\Entity\Task;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Task|null find($id, $lockMode = null, $lockVersion = null)
- * @method Task|null findOneBy(array $criteria, array $orderBy = null)
- * @method Task[]    findAll()
- * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TaskRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Task::class);
+        parent::__construct($registry, User::class);
     }
 
-    public function findByManager(User $manager)
+    public function loadByRole($value)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.head = :val')
-            ->setParameter('val', $manager)
-            ->orderBy('t.updatedAt', 'DESC')
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.roles ~ :val')
+            ->setParameter('val', $value)
+            ->orderBy('u.id', 'ASC')
 //            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -33,7 +32,7 @@ class TaskRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Task[] Returns an array of Task objects
+    //  * @return User[] Returns an array of User objects
     //  */
     /*
     public function findByExampleField($value)
@@ -50,7 +49,7 @@ class TaskRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Task
+    public function findOneBySomeField($value): ?User
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

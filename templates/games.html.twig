@@ -47,7 +47,9 @@
                     </li>
                 </ul>
                 {% if app.user %}
-{#                    <a class="nav-link" href="{{ path('account') }}">{{ app.user.userIdentifier }} </a> &nbsp; #}
+                    <a class="nav-link" href="{{ path('account') }}">
+                        {{ app.user.firstname ~ " " ~ app.user.lastname ~ " " ~ app.user.username }}
+                    </a> &nbsp;
                     <a href="{{ path('app_logout') }}"><button class="btn btn-outline-danger" type="submit">Logout</button></a>
                 {% else %}
                     <a href="{{ path('app_login') }}"> <button class="btn btn-outline-primary" type="submit">Login</button></a>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Task;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -73,7 +74,7 @@ class ContentController extends AbstractController
         }
 
         switch (true) {
-            case $user->hasRole(User::ROLE_ADMIN):
+            case $user->hasRole(User::ROLE_ADMIN) || $user->hasRole(User::ROLE_SUPER_ADMIN):
                 return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
 
                 break;
@@ -105,6 +106,18 @@ class ContentController extends AbstractController
 
     public function buildManager()
     {
-        return $this->render('manager.html.twig', []);
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $tasks = $this->getDoctrine()
+            ->getRepository(Task::class)
+            ->findByManager($user);
+
+//        $operator = $this->getDoctrine()
+//            ->getRepository(User::class)
+//            ->loadByRole(User::ROLE_OPERATOR);
+
+        return $this->render('manager.html.twig', [
+            'tasks' => $tasks
+        ]);
     }
 }

@@ -232,4 +232,9 @@ class Task
     {
         return $this->name;
     }
+
+    public function getStatusName()
+    {
+        return self::$statuses[$this->status];
+    }
 }

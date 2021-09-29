@@ -10,11 +10,13 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User extends BaseUser implements UserInterface
 {
