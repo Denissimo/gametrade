@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Task;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,20 +38,22 @@ class ManagerTaskOfferFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var User[]|array $operators */
-        $operators = $this->entityManager->getRepository(User::class)
-            ->loadByRoleAsArray(User::ROLE_OPERATOR);
 
         $builder
-            ->add('operator', ChoiceType::class, [
-                'choices' => array_flip($operators),
-                'choice_translation_domain' => false,
+            ->add('operator', EntityType::class, [
+                'class' => User::class,
+                'query_builder' => function(EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('u');
+                    return $qb->andWhere(
+                        $qb->expr()->like('u.roles', ':roles')
+                    )
+                        ->setParameter('roles', '%"' . User::ROLE_OPERATOR . '"%')
+                        ->orderBy('u.id', 'ASC');
+                },
                 'label' => false,
-                'attr' => ['class' => 'form-select col-4'],
+                'attr' => ['class' => 'form-select'],
             ])
-            ->add('taskId', HiddenType::class, [
-                'data' => 1,
-            ])
+            ->add('status', HiddenType::class, ['data' => Task::STATUS_OFFERED])
             ->add(
                 'offer',
                 SubmitType::class,

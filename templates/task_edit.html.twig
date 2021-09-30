@@ -23,10 +23,24 @@
             {# {{ form_end(form_task_offer) }} #}
 
         </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Данные задачи
+                </div>
+                <div class="card-body">
+                    {{ form(form_task_status) }}
+                </div>
+                <div class="card-footer">
+                    {{ task.status }}
+                </div>
+            </div>
+
+        </div>
     </div>
     <div class="row">
         <div class="col-12">
-            &nbsp;
+            &nbsp;&nbsp;
         </div>
     </div>
 {% endblock %}

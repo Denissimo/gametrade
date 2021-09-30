@@ -2,25 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Account;
 use App\Entity\Task;
-use App\Entity\TaskType;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Sonata\Form\Type\DateTimePickerType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-
-class ManagerTaskEditFormType extends AbstractType
+class ManagerTaskDismissFormType extends AbstractType
 {
     /**
      * @var EntityManagerInterface
@@ -39,37 +38,18 @@ class ManagerTaskEditFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-//            ->add('id', HiddenType::class)
-            ->add('name', null,[
-                    'attr' => ['class' => 'form-control'],
-                ]
-            )
-            ->add('type', EntityType::class, [
-                'attr' => ['class' => 'form-select'],
-                'class' => TaskType::class,
-                'choice_label' => 'name',
-                'required' => true
+            ->add('operator', HiddenType::class, [
+                'data' => null,
             ])
-            ->add('deadLine',
-                DateTimeType::class,
-                [
-                    'widget' => 'single_text',
-                    'empty_data'  => '',
-                    'required'  => false,
-                    'attr' => ['class' => 'form-control datepicker'],
-                ]
-            )
-            ->add('description', null,[
-                    'attr' => ['class' => 'form-control'],
-                ]
-            )
+            ->add('status', HiddenType::class, ['data' => Task::STATUS_NEW])
             ->add(
-                'save',
+                'offer',
                 SubmitType::class,
                 [
-                    'label' => 'Save',
-                    'attr' => ['class' => 'btn btn-primary mt-3']
+                    'label' => 'Dismiss',
+                    'attr' => ['class' => 'btn btn-danger']
                 ]
             );
     }

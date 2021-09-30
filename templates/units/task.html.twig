@@ -15,21 +15,21 @@
             <td><a href="/manager/task/{{ task.id }}"> {{ task.id }}</a></td>
             <td>{{ task.name }}</td>
             <td>
-                <form class="inline_elem" method="post">
-                    <input type="hidden" name="task" value="{{ task.id }}">
-                        <select class="form-select" name="operator">
+{#                <form class="inline_elem" method="post">#}
+{#                    <input type="hidden" name="task" value="{{ task.id }}">#}
+{#                        <select class="form-select" name="operator">#}
 {#                            <option selected>Не выбран</option>#}
-                            {% for operator in operators %}
-                                <option value="{{ operator.id }}">
-                                    {{ operator.firstName ~ " " ~ operator.lastName  ~ " " ~ operator.username }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="btn btn-primary">Предложить</button>
+{#                            {% for operator in operators %}#}
+{#                                <option value="{{ operator.id }}">#}
+{#                                    {{ operator.firstName ~ " " ~ operator.lastName  ~ " " ~ operator.username }}#}
+{#                                </option>#}
+{#                            {% endfor %}#}
+{#                        </select>#}
+{#                        <button type="submit" class="btn btn-primary">Предложить</button>#}
+{##}
+{#                </form>#}
 
-                </form>
-
-
+                {{ task.operator }}
             </td>
             <td>{{ task.type.name }}</td>
             <td>

@@ -1,0 +1,11 @@
+manager:
+    path: /manager
+    controller: App\Controller\ManagerController::buildManager
+
+task_edit:
+    path: /manager/task/{id}
+    controller: App\Controller\ManagerController::buildTaskEdit
+
+task_save:
+    path: /manager/save/task
+    controller: App\Controller\ManagerController::saveTask

@@ -12,14 +12,14 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Task
 {
-    private const STATUS_NEW = 0; //Новый
-    private const STATUS_OFFERED = 1; //Предложен
-    private const STATUS_ACCEPTED = 2; //Принят
-    private const STATUS_IN_WORK = 3; //В работе
-    private const STATUS_OVERDUE = 4; //Просрочен
-    private const STATUS_DONE = 5; //Готов
-    private const STATUS_REJECTED = 6; //Отвергнут
-    private const STATUS_CANCELLED = 7; //Отменён
+    public const STATUS_NEW = 0; //Новый
+    public const STATUS_OFFERED = 1; //Предложен
+    public const STATUS_ACCEPTED = 2; //Принят
+    public const STATUS_IN_WORK = 3; //В работе
+    public const STATUS_OVERDUE = 4; //Просрочен
+    public const STATUS_DONE = 5; //Готов
+    public const STATUS_REJECTED = 6; //Отвергнут
+    public const STATUS_CANCELLED = 7; //Отменён
 
     public static $statuses = [
         self::STATUS_NEW => 'Новый',
