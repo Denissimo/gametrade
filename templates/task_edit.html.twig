@@ -1,0 +1,32 @@
+{# {% extends 'base.html.twig' %} #}
+{% extends 'games.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Данные задачи
+                </div>
+                <div class="card-body">
+                    {{ form(form_task_edit) }}
+                </div>
+            </div>
+            {# {{ form(form_task_offer, {'method': 'POST', 'attr': {'class': 'inline_elem' }}) }} #}
+            {# {{ form_start(form_task_offer, {'method': 'POST', 'attr': {'class': 'inline_elem' }}) }} #}
+            {# {{ form_errors(form_task_offer) }} #}
+            {# {{ form_row(form_task_offer.operator) }} #}
+            {# {{ form_row(form_task_offer.taskId) }} #}
+            {# {{ form_row(form_task_offer.submit, { 'label': 'Submit me' }) }} #}
+            {# {{ form_end(form_task_offer) }} #}
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            &nbsp;
+        </div>
+    </div>
+{% endblock %}

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\ManagerTaskEditFormType;
 use App\Form\ManagerTaskOfferFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -119,7 +121,7 @@ class ContentController extends AbstractController
             ->loadByRole(User::ROLE_OPERATOR);
 
 
-//        $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
+        $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
         $all = $request->request->all();
 //        if ($formTaskOffer->isSubmitted() && $formTaskOffer->isValid()) {
 //
@@ -129,6 +131,39 @@ class ContentController extends AbstractController
         return $this->render('manager.html.twig', [
             'tasks' => $tasks,
 //            'form_task_offer' => $formTaskOffer->createView(),
+            'operators' => $operators
+        ]);
+    }
+
+    public function buildTaskEdit(Request $request)
+    {
+
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $id = $request->get('id');
+        $task = $this->getDoctrine()
+            ->getRepository(Task::class)
+            ->find($id);
+        if ($user !== $task->getHead()) {
+            throw new AccessDeniedException('You are not head of this task');
+        }
+        $formTaskEdit = $this->createForm(ManagerTaskEditFormType::class, $task);
+        $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
+        $operators = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->loadByRole(User::ROLE_OPERATOR);
+
+        $formTaskEdit->handleRequest($request);
+        if ($formTaskEdit->isSubmitted() && $formTaskEdit->isValid()) {
+            $this->getDoctrine()
+                ->getManager()
+                ->flush();
+        }
+
+        return $this->render('task_edit.html.twig', [
+            'task' => $task,
+            'form_task_edit' => $formTaskEdit->createView(),
+            'form_task_offer' => $formTaskOffer->createView(),
             'operators' => $operators
         ]);
     }

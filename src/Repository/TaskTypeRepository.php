@@ -19,6 +19,13 @@ class TaskTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, TaskType::class);
     }
 
+    public function loadKeyVal()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT t.id, t.name FROM App\Entity\TaskType t')
+            ->getResult();
+    }
+
     // /**
     //  * @return TaskType[] Returns an array of TaskType objects
     //  */

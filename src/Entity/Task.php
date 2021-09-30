@@ -132,12 +132,12 @@ class Task
         return $this;
     }
 
-    public function getDeadLine(): ?\DateTimeImmutable
+    public function getDeadLine(): ?\DateTime
     {
         return $this->deadLine;
     }
 
-    public function setDeadLine(?\DateTimeImmutable $deadLine): self
+    public function setDeadLine(?\DateTime $deadLine): self
     {
         $this->deadLine = $deadLine;
 

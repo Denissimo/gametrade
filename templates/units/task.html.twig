@@ -12,7 +12,7 @@
     </tr>
     {% for task in tasks %}
         <tr>
-            <td>{{ task.id }}</td>
+            <td><a href="/manager/task/{{ task.id }}"> {{ task.id }}</a></td>
             <td>{{ task.name }}</td>
             <td>
                 <form class="inline_elem" method="post">

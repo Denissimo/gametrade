@@ -14,6 +14,10 @@ manager:
     path: /manager
     controller: App\Controller\ContentController::buildManager
 
+task_edit:
+    path: /manager/task/{id}
+    controller: App\Controller\ContentController::buildTaskEdit
+
 operator:
     path: /operator
     controller: App\Controller\ContentController::buildOperator
