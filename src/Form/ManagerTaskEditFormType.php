@@ -8,6 +8,7 @@ use App\Entity\TaskType;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\Form\Type\DateTimePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -38,18 +39,15 @@ class ManagerTaskEditFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $taskTypes = $this->entityManager->getRepository(TaskType::class)
-            ->loadKeyVal();
-
-
         $builder
             ->add('name', null,[
                     'attr' => ['class' => 'form-control'],
                 ]
             )
-            ->add('type', ChoiceType::class, [
+            ->add('type', EntityType::class, [
                 'attr' => ['class' => 'form-select'],
-                'choices' => ($taskTypes),
+                'class' => TaskType::class,
+                'choice_label' => 'name',
                 'required' => true
             ])
 
