@@ -3,16 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\ManagerTaskAddFormType;
 use App\Form\ManagerTaskDismissFormType;
 use App\Form\ManagerTaskEditFormType;
 use App\Form\ManagerTaskOfferFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use DateTime;
+use DateInterval;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 use App\Entity\User;
 
 class ManagerController extends AbstractController
@@ -53,6 +54,30 @@ class ManagerController extends AbstractController
 
 
         $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
+        $formTaskAdd = $this->createForm(ManagerTaskAddFormType::class);
+        $formTaskAdd->handleRequest($request);
+        if ($formTaskAdd->isSubmitted() && $formTaskAdd->isValid()) {
+            /** @var Task $newTask */
+            $newTask = $formTaskAdd->getData();
+            $hours = (int) $newTask->getType()
+                ->getDefaultDuration();
+            $deadLine = (new DateTime())->add(
+                new DateInterval(
+                    sprintf('PT%dH', $hours)
+                )
+            );
+            $newTask->setStatus(Task::STATUS_NEW)
+                ->setHead($user)
+                ->setDeadLine($deadLine)
+            ;
+            $entityManager = $this->getDoctrine()
+                ->getManager();
+            $entityManager->persist($newTask);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('manager');
+        }
+
         $all = $request->request->all();
 //        if ($formTaskOffer->isSubmitted() && $formTaskOffer->isValid()) {
 //
@@ -62,6 +87,7 @@ class ManagerController extends AbstractController
         return $this->render('manager.html.twig', [
             'tasks' => $tasks,
 //            'form_task_offer' => $formTaskOffer->createView(),
+            'form_task_add' => $formTaskAdd->createView(),
             'operators' => $operators
         ]);
     }
@@ -77,6 +103,7 @@ class ManagerController extends AbstractController
         if ($user !== $task->getHead()) {
             throw new AccessDeniedException('You are not head of this task');
         }
+
         $formTaskEdit = $this->createForm(ManagerTaskEditFormType::class, $task, [
 //            'action' => $this->generateUrl('task_save')
         ]);

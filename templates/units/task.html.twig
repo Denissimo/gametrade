@@ -15,21 +15,25 @@
             <td><a href="/manager/task/{{ task.id }}"> {{ task.id }}</a></td>
             <td>{{ task.name }}</td>
             <td>
-{#                <form class="inline_elem" method="post">#}
-{#                    <input type="hidden" name="task" value="{{ task.id }}">#}
-{#                        <select class="form-select" name="operator">#}
-{#                            <option selected>Не выбран</option>#}
-{#                            {% for operator in operators %}#}
-{#                                <option value="{{ operator.id }}">#}
-{#                                    {{ operator.firstName ~ " " ~ operator.lastName  ~ " " ~ operator.username }}#}
-{#                                </option>#}
-{#                            {% endfor %}#}
-{#                        </select>#}
-{#                        <button type="submit" class="btn btn-primary">Предложить</button>#}
-{##}
-{#                </form>#}
+                {# <form class="inline_elem" method="post"> #}
+                {# <input type="hidden" name="task" value="{{ task.id }}"> #}
+                {# <select class="form-select" name="operator"> #}
+                {# <option selected>Не выбран</option> #}
+                {# {% for operator in operators %} #}
+                {# <option value="{{ operator.id }}"> #}
+                {# {{ operator.firstName ~ " " ~ operator.lastName  ~ " " ~ operator.username }} #}
+                {# </option> #}
+                {# {% endfor %} #}
+                {# </select> #}
+                {# <button type="submit" class="btn btn-primary">Предложить</button> #}
+                {# #}
+                {# </form> #}
 
-                {{ task.operator }}
+                {% if task.operator is defined and task.operator is not empty %}
+                    {{ task.operator }}
+                {% else %}
+                    Не назначен
+                {% endif %}
             </td>
             <td>{{ task.type.name }}</td>
             <td>
@@ -37,7 +41,7 @@
                     {{ task.account.id }}
                 {% endif %}
             </td>
-            <td>{{ task.deadLine|date("d.m.Y") }}</td>
+            <td>{{ task.deadLine|date("d.m.Y H:i") }}</td>
             {# <td>{{ dump(constant('App\\Entity\\Task::STATUS_REJECTED')) }}</td> #}
             <td>{{ task.statusName }}</td>
             <td>{{ task.createdAt|date("d.m.Y") }}</td>
