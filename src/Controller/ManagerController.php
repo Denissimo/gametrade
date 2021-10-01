@@ -103,27 +103,33 @@ class ManagerController extends AbstractController
         $formTaskEdit->handleRequest($request);
         $formTaskStatus->handleRequest($request);
 
-        if (
-        ($formTaskEdit->isSubmitted() && $formTaskEdit->isValid()) ||
-        ($formTaskStatus->isSubmitted() && $formTaskStatus->isValid())
-        ) {
+        if ($formTaskStatus->isSubmitted() && $formTaskStatus->isValid()) {
+                $this->getDoctrine()
+                  ->getManager()
+                    ->flush();
+
+
+            return $this->redirect($request->headers->get('referer'));
+//            return $this->redirectToRoute('manager');
+        }
+
+        if ($formTaskEdit->isSubmitted() && $formTaskEdit->isValid()) {
             $this->getDoctrine()
                 ->getManager()
                 ->flush();
 
-            $data = $formTaskStatus->getData();
-
             return $this->redirectToRoute('manager');
         }
-        $operators = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->loadByRole(User::ROLE_OPERATOR);
+
+//        $operators = $this->getDoctrine()
+//            ->getRepository(User::class)
+//            ->loadByRole(User::ROLE_OPERATOR);
 
         return $this->render('task_edit.html.twig', [
             'task' => $task,
             'form_task_edit' => $formTaskEdit->createView(),
             'form_task_status' => $formTaskStatus->createView(),
-            'operators' => $operators
+//            'operators' => $operators
         ]);
     }
 
@@ -139,5 +145,4 @@ class ManagerController extends AbstractController
 
         return $this->redirect($request->headers->get('referer'));
     }
-
 }

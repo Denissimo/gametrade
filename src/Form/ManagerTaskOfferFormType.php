@@ -58,8 +58,8 @@ class ManagerTaskOfferFormType extends AbstractType
                 'offer',
                 SubmitType::class,
                 [
-                    'label' => 'To Offer',
-                    'attr' => ['class' => 'btn btn-primary']
+                    'label' => 'Предложить оператору задачу',
+                    'attr' => ['class' => 'btn btn-primary mt-3']
                 ]
             );
     }

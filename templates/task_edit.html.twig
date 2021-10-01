@@ -26,21 +26,31 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    Данные задачи
+                    Назначения
                 </div>
                 <div class="card-body">
-                    {{ form(form_task_status) }}
+                    <div class="row">
+                        <div class="col-6">
+                            Статус задачи <span class="badge bg-primary">{{ task.statusName }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span class="badge bg-secondary">
+                                {% if task.operator is defined and task.operator is not empty %}
+                                    {{ task.operator.fioUsername }}
+                                {% else %}
+                                    Оператор не назначен
+                                {% endif %}
+                            </span>
+                            {{ form(form_task_status) }}
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
-                    {{ task.status }}
+
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            &nbsp;&nbsp;
-        </div>
-    </div>
+
 {% endblock %}

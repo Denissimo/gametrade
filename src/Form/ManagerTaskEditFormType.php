@@ -68,7 +68,7 @@ class ManagerTaskEditFormType extends AbstractType
                 'save',
                 SubmitType::class,
                 [
-                    'label' => 'Save',
+                    'label' => 'Сохранить',
                     'attr' => ['class' => 'btn btn-primary mt-3']
                 ]
             );

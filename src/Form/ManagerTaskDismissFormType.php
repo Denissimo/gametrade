@@ -48,8 +48,8 @@ class ManagerTaskDismissFormType extends AbstractType
                 'offer',
                 SubmitType::class,
                 [
-                    'label' => 'Dismiss',
-                    'attr' => ['class' => 'btn btn-danger']
+                    'label' => 'Снять оператора с задачи',
+                    'attr' => ['class' => 'btn btn-danger mt-3']
                 ]
             );
     }
