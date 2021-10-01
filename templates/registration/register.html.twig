@@ -7,9 +7,11 @@
     <div class="row">
         <div class="col-6 offset-3">
             <div class="card border-primary mb-3">
-                <div class="card-header">Please Sign Up</div>
+                <div class="card-header">Регистрация</div>
                 <div class="card-body text-primary">
                     {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.firstname) }}
+                    {{ form_row(registrationForm.lastname) }}
                     {{ form_row(registrationForm.username) }}
                     {{ form_row(registrationForm.plainPassword, {
                         label: 'Password'

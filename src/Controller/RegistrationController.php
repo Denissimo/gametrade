@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\FinanceAccount;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,10 +36,18 @@ class RegistrationController extends AbstractController
             $emailDummy = sprintf('%s@test.te', $username);
             $user->setEmail($emailDummy)
                 ->setEmailCanonical($emailDummy)
+                ->setFirstname($form->get('firstname')->getData())
+                ->setLastname($form->get('lastname')->getData())
                 ->setEnabled(true); //активация автоматом
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
+            $randomAmount = rand(500000, 8000000);
+            $financeAccount = (new FinanceAccount())
+                ->setOwner($user)
+                ->setAmount($randomAmount)
+                ->setActive(true);
+            $entityManager->persist($financeAccount);
             $entityManager->flush();
             // do anything else you need here, like send an email
 

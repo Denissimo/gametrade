@@ -1,3 +1,7 @@
+Firstname: Имя
+Lastname: Фамилия
+Username: Логин
+Password: Пароль
 Action: Действие
 Id: Номер
 Url: URL
@@ -12,8 +16,7 @@ Is Active: Активно
 Is Test: Тест
 Valid Till: Действует до
 
-Username: Имя Пользователя
-Password: Пароль
+
 
 Type: Тип
 Status: Статус
