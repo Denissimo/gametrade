@@ -1,0 +1,28 @@
+{% block content %}
+    <tr>
+        <th>Номер</th>
+        <th>Владелец</th>
+        <th>Игра</th>
+        <th>Внешний ID</th>
+        <th>Статус</th>
+        <th>Цена</th>
+        <th>Создано</th>
+        <th>Изменено</th>
+    </tr>
+    {% for account in accounts %}
+        <tr>
+            <td><a href="/operator/accountt/{{ account.id }}"> {{ account.id }}</a></td>
+            <td>
+                {% if account.owner is defined and account.owner is not empty %}
+                    {{ account.owner.fioUsername}}
+                {% endif %}
+            </td>
+            <td>{{ account.game.name }}</td>
+            <td>{{ account.externalId }}</td>
+            <td>{{ account.statusName }}</td>
+            <td>{{ (account.price / 100)|number_format(2, ',', ' ') }}</td>
+            <td>{{ account.createdAt|date("d.m.Y") }}</td>
+            <td>{{ account.updatedAt|date("d.m.Y") }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+operator:
+    path: /operator
+    controller: App\Controller\OperatorController::buildTaskList
+
+operator_task_edit:
+    path: /operator/task/{id}
+    controller: App\Controller\OperatorController::buildTaskEdit
+
+#task_save:
+#    path: /manager/save/task
+#    controller: App\Controller\ManagerController::saveTask

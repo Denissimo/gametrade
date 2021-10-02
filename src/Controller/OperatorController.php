@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
 use App\Entity\Task;
 use App\Form\ManagerTaskAddFormType;
 use App\Form\ManagerTaskDismissFormType;
 use App\Form\ManagerTaskEditFormType;
 use App\Form\ManagerTaskOfferFormType;
+use App\Form\OperatorAccountAddFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\User;
 
-class ManagerController extends AbstractController
+class OperatorController extends AbstractController
 {
     /**
      * @var  TokenStorageInterface
@@ -46,49 +48,35 @@ class ManagerController extends AbstractController
         $user = $this->tokenStorage->getToken()->getUser();
         $tasks = $this->getDoctrine()
             ->getRepository(Task::class)
-            ->findByManager($user);
+            ->findByOperator($user);
 
-        $operators = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->loadByRole(User::ROLE_OPERATOR);
+        $accounts = $this->getDoctrine()
+            ->getRepository(Account::class)
+            ->findByOperator($user);
 
-
-        $formTaskOffer = $this->createForm(ManagerTaskOfferFormType::class);
-        $formTaskAdd = $this->createForm(ManagerTaskAddFormType::class);
-        $formTaskAdd->handleRequest($request);
-        if ($formTaskAdd->isSubmitted() && $formTaskAdd->isValid()) {
-            /** @var Task $newTask */
-            $newTask = $formTaskAdd->getData();
-            $hours = (int) $newTask->getType()
-                ->getDefaultDuration();
-            $deadLine = (new DateTime())->add(
-                new DateInterval(
-                    sprintf('PT%dH', $hours)
-                )
-            );
-            $newTask->setStatus(Task::STATUS_NEW)
-                ->setHead($user)
-                ->setDeadLine($deadLine)
+        $formAccountAdd = $this->createForm(OperatorAccountAddFormType::class);
+        $formAccountAdd->handleRequest($request);
+        if ($formAccountAdd->isSubmitted() && $formAccountAdd->isValid()) {
+            /** @var Task $newAccaunt */
+            $newAccaunt = $formAccountAdd->getData();
+            $newAccaunt->setStatus(Account::STATUS_NEW)
+                ->setOperator($user)
             ;
             $entityManager = $this->getDoctrine()
                 ->getManager();
-            $entityManager->persist($newTask);
+            $entityManager->persist($newAccaunt);
             $entityManager->flush();
 
-            return $this->redirectToRoute('manager');
+            return $this->redirectToRoute('operator');
         }
 
-        $all = $request->request->all();
-//        if ($formTaskOffer->isSubmitted() && $formTaskOffer->isValid()) {
-//
-//        }
-//        $formTaskOffer->handleRequest($request);
 
-        return $this->render('manager.html.twig', [
+        return $this->render('operator.html.twig', [
             'tasks' => $tasks,
+            'accounts' => $accounts,
+            'form_account_add' => $formAccountAdd->createView()
 //            'form_task_offer' => $formTaskOffer->createView(),
-            'form_task_add' => $formTaskAdd->createView(),
-            'operators' => $operators
+
         ]);
     }
 

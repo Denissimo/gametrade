@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Account;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,16 @@ class AccountRepository extends ServiceEntityRepository
         parent::__construct($registry, Account::class);
     }
 
+    public function findByOperator(User $operator)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.operator = :val')
+            ->setParameter('val', $operator)
+            ->orderBy('a.updatedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Account[] Returns an array of Account objects
     //  */

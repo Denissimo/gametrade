@@ -9,7 +9,3 @@ account:
 user:
     path: /user
     controller: App\Controller\ContentController::buildUser
-
-operator:
-    path: /operator
-    controller: App\Controller\ContentController::buildOperator

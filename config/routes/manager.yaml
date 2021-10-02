@@ -1,8 +1,8 @@
 manager:
     path: /manager
-    controller: App\Controller\ManagerController::buildManager
+    controller: App\Controller\ManagerController::buildTaskList
 
-task_edit:
+manager_task_edit:
     path: /manager/task/{id}
     controller: App\Controller\ManagerController::buildTaskEdit
 

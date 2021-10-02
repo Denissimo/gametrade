@@ -26,11 +26,22 @@ class TaskRepository extends ServiceEntityRepository
             ->andWhere('t.head = :val')
             ->setParameter('val', $manager)
             ->orderBy('t.updatedAt', 'DESC')
-//            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
             ;
     }
+
+    public function findByOperator(User $operator)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.operator = :val')
+            ->setParameter('val', $operator)
+            ->orderBy('t.updatedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     // /**
     //  * @return Task[] Returns an array of Task objects
