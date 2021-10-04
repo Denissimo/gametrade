@@ -1,0 +1,78 @@
+{# {% extends 'base.html.twig' %} #}
+{% extends 'games.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Данные задачи
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3"><b>Название</b></div>
+                        <div class="col-9">{{ task.name }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3"><b>Тип</b></div>
+                        <div class="col-9">{{ task.type }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3"><b>Крайний срок</b></div>
+                        <div class="col-9">{{ task.deadLine|date("d.m.Y H:i") }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><b>Описание</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">{{ task.description }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Назначения
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            Статус задачи <span class="badge bg-primary">{{ task.statusName }}</span>
+                        </div>
+                        <div class="col-6">
+{#                            {% switch true %}#}
+{#                            {% switch task.status %}#}
+{#                            {% case task.status == constant('App\\Entity\\Task::STATUS_OFFERED') %}#}
+{#                                {{ form(form_task_accept) }}#}
+{#                                {{ form(form_task_reject) }}#}
+{#                            {% case 'value2' %}#}
+{#                                <p>value is "value2"</p>#}
+{#                            {% case 'value3' %}#}
+{#                            {% case 'value4' %}#}
+{#                                <p>value is "value3" or "value4"</p>#}
+{#                            {% default %}#}
+{#                                <p>value is something else</p>#}
+{#                            {% endswitch %}#}
+                            <span class="badge bg-secondary">
+                                {% if task.operator is defined and task.operator is not empty %}
+                                    {{ task.operator.fioUsername }}
+                                {% else %}
+                                    Оператор не назначен
+                                {% endif %}
+                            </span>
+{#                            {{ form(form_task_status) }}#}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

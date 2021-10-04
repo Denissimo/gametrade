@@ -51,7 +51,7 @@ class OperatorAccountAddFormType extends AbstractType
                 'save',
                 SubmitType::class,
                 [
-                    'label' => 'Сохранить',
+                    'label' => 'Save',
                     'attr' => ['class' => 'btn btn-primary mt-3']
                 ]
             );

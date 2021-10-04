@@ -109,7 +109,6 @@ class ManagerController extends AbstractController
         ]);
         switch (true) {
             case in_array($task->getStatus(), [
-                Task::STATUS_ACCEPTED,
                 Task::STATUS_IN_WORK,
                 Task::STATUS_OFFERED,
                 Task::STATUS_REJECTED
@@ -152,7 +151,7 @@ class ManagerController extends AbstractController
 //            ->getRepository(User::class)
 //            ->loadByRole(User::ROLE_OPERATOR);
 
-        return $this->render('task_edit.html.twig', [
+        return $this->render('manager_task_edit.html.twig', [
             'task' => $task,
             'form_task_edit' => $formTaskEdit->createView(),
             'form_task_status' => $formTaskStatus->createView(),

@@ -20,7 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class ManagerTaskEditFormType extends AbstractType
+class OperatorTaskEditFormType extends AbstractType
 {
     /**
      * @var EntityManagerInterface
@@ -42,11 +42,11 @@ class ManagerTaskEditFormType extends AbstractType
         $builder
 //            ->add('id', HiddenType::class)
             ->add('name', null,[
-                    'attr' => ['class' => 'form-control'],
+                    'attr' => ['class' => 'form-control', 'disabled' => 'disabled'],
                 ]
             )
             ->add('type', EntityType::class, [
-                'attr' => ['class' => 'form-select'],
+                'attr' => ['class' => 'form-select', 'disabled' => 'disabled'],
                 'class' => TaskType::class,
                 'choice_label' => 'name',
                 'required' => true
@@ -57,19 +57,11 @@ class ManagerTaskEditFormType extends AbstractType
                     'widget' => 'single_text',
                     'empty_data'  => '',
                     'required'  => false,
-                    'attr' => ['class' => 'form-control datepicker'],
+                    'attr' => ['class' => 'form-control datepicker', 'disabled' => 'disabled'],
                 ]
             )
             ->add('description', null,[
-                    'attr' => ['class' => 'form-control'],
-                ]
-            )
-            ->add(
-                'save',
-                SubmitType::class,
-                [
-                    'label' => 'Save',
-                    'attr' => ['class' => 'btn btn-primary mt-3']
+                    'attr' => ['class' => 'form-control', 'disabled' => 'disabled'],
                 ]
             );
     }

@@ -14,21 +14,21 @@ class Task
 {
     public const STATUS_NEW = 0; //Новый
     public const STATUS_OFFERED = 1; //Предложен
-    public const STATUS_ACCEPTED = 2; //Принят
-    public const STATUS_IN_WORK = 3; //В работе
-    public const STATUS_OVERDUE = 4; //Просрочен
-    public const STATUS_DONE = 5; //Готов
-    public const STATUS_REJECTED = 6; //Отвергнут
+    public const STATUS_IN_WORK = 2; //Принят работу
+    public const STATUS_OVERDUE = 3; //Просрочен
+    public const STATUS_DONE = 4; //Готов
+    public const STATUS_REJECTED = 5; //Отвергнут
+    public const STATUS_CONFIRMED = 6; //Отменён
     public const STATUS_CANCELLED = 7; //Отменён
 
     public static $statuses = [
         self::STATUS_NEW => 'Новый',
         self::STATUS_OFFERED => 'Предложен',
-        self::STATUS_ACCEPTED => 'Принят',
-        self::STATUS_IN_WORK => 'В работе',
+        self::STATUS_IN_WORK => 'Принят',
         self::STATUS_OVERDUE => 'Просрочен',
         self::STATUS_DONE => 'Готов',
         self::STATUS_REJECTED => 'Отвергнут',
+        self::STATUS_CONFIRMED => 'Подтверждён',
         self::STATUS_CANCELLED => 'Отменён'
     ];
 

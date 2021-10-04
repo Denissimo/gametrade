@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\Task;
-use App\Form\ManagerTaskAddFormType;
 use App\Form\ManagerTaskDismissFormType;
 use App\Form\ManagerTaskEditFormType;
 use App\Form\ManagerTaskOfferFormType;
 use App\Form\OperatorAccountAddFormType;
+use App\Form\OperatorTaskAcceptFormType;
+use App\Form\OperatorTaskDoneFormType;
+use App\Form\OperatorTaskEditFormType;
+use App\Form\OperatorTaskRejectFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,37 +91,22 @@ class OperatorController extends AbstractController
         $task = $this->getDoctrine()
             ->getRepository(Task::class)
             ->find($id);
-        if ($user !== $task->getHead()) {
+        if ($user !== $task->getOperator()) {
             throw new AccessDeniedException('You are not head of this task');
         }
 
-        $formTaskEdit = $this->createForm(ManagerTaskEditFormType::class, $task, [
+        $formTaskEdit = $this->createForm(OperatorTaskEditFormType::class, $task, [
 //            'action' => $this->generateUrl('task_save')
         ]);
-        switch (true) {
-            case in_array($task->getStatus(), [
-                Task::STATUS_ACCEPTED,
-                Task::STATUS_IN_WORK,
-                Task::STATUS_OFFERED,
-                Task::STATUS_REJECTED
-            ]):
-                $formTaskStatus = $this->createForm(ManagerTaskDismissFormType::class, $task);
-            break;
+        $formTaskAccept = $this->createForm(OperatorTaskAcceptFormType::class, $task);
+        $formTaskReject = $this->createForm(OperatorTaskRejectFormType::class, $task);
+        $formTaskDone = $this->createForm(OperatorTaskDoneFormType::class, $task);
 
-            case in_array($task->getStatus(), [
-                Task::STATUS_NEW,
-                Task::STATUS_REJECTED
-            ]):
-                $formTaskStatus = $this->createForm(ManagerTaskOfferFormType::class, $task);
-            break;
+        $formTaskAccept->handleRequest($request);
+        $formTaskReject->handleRequest($request);
+        $formTaskDone->handleRequest($request);
 
-            default:
-                $formTaskStatus = $this->createForm(ManagerTaskOfferFormType::class, $task);
-        }
-        $formTaskEdit->handleRequest($request);
-        $formTaskStatus->handleRequest($request);
-
-        if ($formTaskStatus->isSubmitted() && $formTaskStatus->isValid()) {
+        if ($formTaskAccept->isSubmitted() && $formTaskAccept->isValid()) {
                 $this->getDoctrine()
                   ->getManager()
                     ->flush();
@@ -133,18 +121,15 @@ class OperatorController extends AbstractController
                 ->getManager()
                 ->flush();
 
-            return $this->redirectToRoute('manager');
+            return $this->redirectToRoute('operator');
         }
 
-//        $operators = $this->getDoctrine()
-//            ->getRepository(User::class)
-//            ->loadByRole(User::ROLE_OPERATOR);
 
-        return $this->render('task_edit.html.twig', [
+        return $this->render('operator_task_edit.html.twig', [
             'task' => $task,
-            'form_task_edit' => $formTaskEdit->createView(),
-            'form_task_status' => $formTaskStatus->createView(),
-//            'operators' => $operators
+            'form_task_accept' => $formTaskAccept->createView(),
+            'form_task_reject' => $formTaskReject->createView(),
+            'form_task_done' => $formTaskDone->createView()
         ]);
     }
 
