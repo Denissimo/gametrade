@@ -43,7 +43,7 @@ class ManagerTaskDismissFormType extends AbstractType
             ->add('operator', HiddenType::class, [
                 'data' => null,
             ])
-            ->add('status', HiddenType::class, ['data' => Task::STATUS_NEW])
+            ->add('status', HiddenType::class, ['data' => Task::STATUS_UNASSIGNED])
             ->add(
                 'offer',
                 SubmitType::class,

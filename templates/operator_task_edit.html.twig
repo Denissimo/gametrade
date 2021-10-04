@@ -39,39 +39,34 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             Статус задачи <span class="badge bg-primary">{{ task.statusName }}</span>
-                        </div>
-                        <div class="col-6">
-{#                            {% switch true %}#}
-{#                            {% switch task.status %}#}
-{#                            {% case task.status == constant('App\\Entity\\Task::STATUS_OFFERED') %}#}
-{#                                {{ form(form_task_accept) }}#}
-{#                                {{ form(form_task_reject) }}#}
-{#                            {% case 'value2' %}#}
-{#                                <p>value is "value2"</p>#}
-{#                            {% case 'value3' %}#}
-{#                            {% case 'value4' %}#}
-{#                                <p>value is "value3" or "value4"</p>#}
-{#                            {% default %}#}
-{#                                <p>value is something else</p>#}
-{#                            {% endswitch %}#}
-                            <span class="badge bg-secondary">
-                                {% if task.operator is defined and task.operator is not empty %}
-                                    {{ task.operator.fioUsername }}
-                                {% else %}
-                                    Оператор не назначен
-                                {% endif %}
-                            </span>
-{#                            {{ form(form_task_status) }}#}
+                            {{ form(form_task_reject) }}
+                            {% if task.status == constant('App\\Entity\\Task::STATUS_OFFERED') %}
+                                {{ form(form_task_accept) }}
+                            {% elseif  task.status == constant('App\\Entity\\Task::STATUS_IN_WORK') %}
+                                {{ form(form_task_done) }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
+{#                <div class="card-footer">#}
 
-                </div>
+{#                </div>#}
             </div>
 
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            Аккаунты по задаче {{ task }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                {% include 'units/account_operator.html.twig'  with {'accounts': task.accounts} %}
+            </table>
         </div>
     </div>
 

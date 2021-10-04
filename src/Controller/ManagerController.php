@@ -66,7 +66,7 @@ class ManagerController extends AbstractController
                     sprintf('PT%dH', $hours)
                 )
             );
-            $newTask->setStatus(Task::STATUS_NEW)
+            $newTask->setStatus(Task::STATUS_UNASSIGNED)
                 ->setHead($user)
                 ->setDeadLine($deadLine)
             ;
@@ -117,7 +117,7 @@ class ManagerController extends AbstractController
             break;
 
             case in_array($task->getStatus(), [
-                Task::STATUS_NEW,
+                Task::STATUS_UNASSIGNED,
                 Task::STATUS_REJECTED
             ]):
                 $formTaskStatus = $this->createForm(ManagerTaskOfferFormType::class, $task);

@@ -4,9 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\Task;
-use App\Form\ManagerTaskDismissFormType;
+use App\Entity\Transaction;
 use App\Form\ManagerTaskEditFormType;
-use App\Form\ManagerTaskOfferFormType;
 use App\Form\OperatorAccountAddFormType;
 use App\Form\OperatorTaskAcceptFormType;
 use App\Form\OperatorTaskDoneFormType;
@@ -15,8 +14,6 @@ use App\Form\OperatorTaskRejectFormType;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
-use DateTime;
-use DateInterval;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\User;
@@ -106,14 +103,50 @@ class OperatorController extends AbstractController
         $formTaskReject->handleRequest($request);
         $formTaskDone->handleRequest($request);
 
+        if ($formTaskReject->isSubmitted() && $formTaskReject->isValid()) {
+            $financeAccount = $task->getOperator()->getFinanceAccount();
+            $penaltyAmount = $task->getType()->
+                getRejectPenalty();
+
+            $penalty = (new Transaction())->setFinance($financeAccount)
+                ->setAmount($penaltyAmount)
+                ->setType(Transaction::TYPE_DEBIT)
+                ->setStatus(Transaction::STATUS_NEW)
+            ;
+
+            $task->setStatus(Task::STATUS_UNASSIGNED)
+                ->setOperator(null);
+
+            $entityManager  = $this->getDoctrine()
+                ->getManager();
+            $entityManager->persist($penalty);
+
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('operator');
+        }
+
         if ($formTaskAccept->isSubmitted() && $formTaskAccept->isValid()) {
+            $task->setStatus(Task::STATUS_IN_WORK);
+
+            $entityManager  = $this->getDoctrine()
+                ->getManager();
+
+            $entityManager->flush();
+
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        if ($formTaskDone->isSubmitted() && $formTaskDone->isValid()) {
+                $task->setStatus(Task::STATUS_DONE);
+
                 $this->getDoctrine()
                   ->getManager()
                     ->flush();
 
-
-            return $this->redirect($request->headers->get('referer'));
-//            return $this->redirectToRoute('manager');
+            return $this->redirectToRoute('operator');
         }
 
         if ($formTaskEdit->isSubmitted() && $formTaskEdit->isValid()) {

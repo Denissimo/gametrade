@@ -12,13 +12,13 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Transaction
 {
-    private const TYPE_DEBIT = 0; //Списание
-    private const TYPE_CREDIT = 1; //Зачисление
+    public const TYPE_DEBIT = 0; //Списание
+    public const TYPE_CREDIT = 1; //Зачисление
 
-    private const STATUS_NEW = 0; //Новый
-    private const STATUS_APPROVED = 1; //Проведён
-    private const STATUS_CHECK = 2; //Проверка
-    private const STATUS_CANCELED = 3; //Отменён
+    public const STATUS_NEW = 0; //Новый
+    public const STATUS_APPROVED = 1; //Проведён
+    public const STATUS_CHECK = 2; //Проверка
+    public const STATUS_CANCELED = 3; //Отменён
 
     public static $types = [
         self::TYPE_DEBIT => 'Списание',

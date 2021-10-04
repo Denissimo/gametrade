@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -12,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Task
 {
-    public const STATUS_NEW = 0; //Новый
+    public const STATUS_UNASSIGNED = 0; //Не назначен
     public const STATUS_OFFERED = 1; //Предложен
     public const STATUS_IN_WORK = 2; //Принят работу
     public const STATUS_OVERDUE = 3; //Просрочен
@@ -22,7 +24,7 @@ class Task
     public const STATUS_CANCELLED = 7; //Отменён
 
     public static $statuses = [
-        self::STATUS_NEW => 'Новый',
+        self::STATUS_UNASSIGNED => 'Не назначен',
         self::STATUS_OFFERED => 'Предложен',
         self::STATUS_IN_WORK => 'Принят',
         self::STATUS_OVERDUE => 'Просрочен',
@@ -94,6 +96,16 @@ class Task
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="task")
+     */
+    private $accounts;
+
+    public function __construct()
+    {
+        $this->accounts = new ArrayCollection();
+    }
 
     public function getId(): UuidInterface
     {
@@ -236,5 +248,35 @@ class Task
     public function getStatusName()
     {
         return self::$statuses[$this->status];
+    }
+
+    /**
+     * @return Collection|Account[]
+     */
+    public function getAccounts(): Collection
+    {
+        return $this->accounts;
+    }
+
+    public function addAccount(Account $account): self
+    {
+        if (!$this->accounts->contains($account)) {
+            $this->accounts[] = $account;
+            $account->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(Account $account): self
+    {
+        if ($this->accounts->removeElement($account)) {
+            // set the owning side to null (unless already changed)
+            if ($account->getTask() === $this) {
+                $account->setTask(null);
+            }
+        }
+
+        return $this;
     }
 }

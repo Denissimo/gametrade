@@ -90,6 +90,11 @@ class Account
      */
     private $tasks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="accounts")
+     */
+    private $task;
+
     public function __construct()
     {
         $this->credentials = new ArrayCollection();
@@ -273,5 +278,17 @@ class Account
     public function getStatusName()
     {
         return self::$statuses[$this->status];
+    }
+
+    public function getTask(): ?Task
+    {
+        return $this->task;
+    }
+
+    public function setTask(?Task $task): self
+    {
+        $this->task = $task;
+
+        return $this;
     }
 }

@@ -25,10 +25,6 @@ class FinanceAccount
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="financeAccounts")
-     */
-    private $owner;
 
     /**
      * @ORM\Column(type="integer")
@@ -57,6 +53,12 @@ class FinanceAccount
      */
     private $transactions;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="financeAccount", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -73,18 +75,6 @@ class FinanceAccount
     public function setId(UuidInterface $id): void
     {
         $this->id = $id;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): self
-    {
-        $this->owner = $owner;
-
-        return $this;
     }
 
     public function getAmount(): ?int
@@ -178,5 +168,17 @@ class FinanceAccount
     public function __toString()
     {
         return $this->getUuidFio();
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 }

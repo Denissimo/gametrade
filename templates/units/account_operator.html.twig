@@ -4,6 +4,7 @@
         <th>Владелец</th>
         <th>Игра</th>
         <th>Внешний ID</th>
+        <th>Задача</th>
         <th>Статус</th>
         <th>Цена</th>
         <th>Создано</th>
@@ -11,7 +12,7 @@
     </tr>
     {% for account in accounts %}
         <tr>
-            <td><a href="/operator/accountt/{{ account.id }}"> {{ account.id }}</a></td>
+            <td><a href="/operator/account/{{ account.id }}"> {{ account.id }}</a></td>
             <td>
                 {% if account.owner is defined and account.owner is not empty %}
                     {{ account.owner.fioUsername}}
@@ -19,6 +20,7 @@
             </td>
             <td>{{ account.game.name }}</td>
             <td>{{ account.externalId }}</td>
+            <td><a href="/operator/task/{{ account.task.id }}">{{ account.task }}</a></td>
             <td>{{ account.statusName }}</td>
             <td>{{ (account.price / 100)|number_format(2, ',', ' ') }}</td>
             <td>{{ account.createdAt|date("d.m.Y") }}</td>

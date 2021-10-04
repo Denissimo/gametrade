@@ -33,9 +33,18 @@ class TaskRepository extends ServiceEntityRepository
 
     public function findByOperator(User $operator)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.operator = :val')
+        $qb = $this->createQueryBuilder('t');
+
+        return $qb->where('t.operator = :val')
+            ->andWhere(
+                $qb->expr()->notIn('t.status', ':statuses')
+            )
             ->setParameter('val', $operator)
+            ->setParameter('statuses', [
+                Task::STATUS_DONE,
+                Task::STATUS_CANCELLED,
+                Task::STATUS_CONFIRMED
+            ])
             ->orderBy('t.updatedAt', 'DESC')
             ->getQuery()
             ->getResult()
