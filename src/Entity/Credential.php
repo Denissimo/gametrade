@@ -49,7 +49,7 @@ class Credential
     private $isActive;
 
     /**
-     * @ORM\Column(type="date_immutable", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $validTill;
 
@@ -138,12 +138,12 @@ class Credential
         return $this;
     }
 
-    public function getValidTill(): ?\DateTimeImmutable
+    public function getValidTill(): ?\DateTime
     {
         return $this->validTill;
     }
 
-    public function setValidTill(?\DateTimeImmutable $validTill): self
+    public function setValidTill(?\DateTime $validTill): self
     {
         $this->validTill = $validTill;
 
