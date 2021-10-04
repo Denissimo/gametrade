@@ -147,15 +147,11 @@ class ManagerController extends AbstractController
             return $this->redirectToRoute('manager');
         }
 
-//        $operators = $this->getDoctrine()
-//            ->getRepository(User::class)
-//            ->loadByRole(User::ROLE_OPERATOR);
 
         return $this->render('manager_task_edit.html.twig', [
             'task' => $task,
             'form_task_edit' => $formTaskEdit->createView(),
             'form_task_status' => $formTaskStatus->createView(),
-//            'operators' => $operators
         ]);
     }
 

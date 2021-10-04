@@ -89,7 +89,7 @@ class OperatorController extends AbstractController
             ->getRepository(Task::class)
             ->find($id);
         if ($user !== $task->getOperator()) {
-            throw new AccessDeniedException('You are not head of this task');
+            throw new AccessDeniedException('You are not operator of this task');
         }
 
         $formTaskEdit = $this->createForm(OperatorTaskEditFormType::class, $task, [
@@ -166,16 +166,23 @@ class OperatorController extends AbstractController
         ]);
     }
 
-    public function saveTask(Request $request)
+    public function buildAccountEdit(Request $request)
     {
-        $formTaskEdit = $this->createForm(ManagerTaskEditFormType::class);
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $id = $request->get('id');
+        $account = $this->getDoctrine()
+            ->getRepository(Account::class)
+            ->find($id);
+        if ($user !== $account->getOperator()) {
+            throw new AccessDeniedException('You are not operator of this account');
+        }
 
-        $formTaskEdit->handleRequest($request);
-        $data = $formTaskEdit->getData();
-        $this->getDoctrine()
-            ->getManager()
-            ->flush();
+        $formAccountEdit = $this->createForm(OperatorAccountAddFormType::class, $account);
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->render('operator_account_edit.html.twig', [
+            'account' => $account,
+            'form_account_edit' => $formAccountEdit->createView()
+        ]);
     }
 }

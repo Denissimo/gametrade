@@ -33,7 +33,7 @@ class OperatorAccountAddFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', EntityType::class, [
+            ->add('game', EntityType::class, [
                 'attr' => ['class' => 'form-select'],
                 'class' => Game::class,
                 'choice_label' => 'name',

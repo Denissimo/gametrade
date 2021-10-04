@@ -6,6 +6,10 @@ operator_task_edit:
     path: /operator/task/{id}
     controller: App\Controller\OperatorController::buildTaskEdit
 
+operator_account_edit:
+    path: /operator/account/{id}
+    controller: App\Controller\OperatorController::buildAccountEdit
+
 #task_save:
 #    path: /manager/save/task
 #    controller: App\Controller\ManagerController::saveTask
