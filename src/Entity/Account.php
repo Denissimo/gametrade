@@ -95,6 +95,11 @@ class Account
      */
     private $task;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Basket::class, inversedBy="account")
+     */
+    private $basket;
+
     public function __construct()
     {
         $this->credentials = new ArrayCollection();
@@ -288,6 +293,18 @@ class Account
     public function setTask(?Task $task): self
     {
         $this->task = $task;
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        $this->basket = $basket;
 
         return $this;
     }
