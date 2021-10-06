@@ -49,7 +49,8 @@ class Account
     private $operator;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Game::class)
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="accounts")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $game;
 
@@ -143,17 +144,6 @@ class Account
         return $this;
     }
 
-    public function getGame(): ?Game
-    {
-        return $this->game;
-    }
-
-    public function setGame(?Game $game): self
-    {
-        $this->game = $game;
-
-        return $this;
-    }
 
     public function getExternalId(): ?string
     {
@@ -305,6 +295,18 @@ class Account
     public function setBasket(?Basket $basket): self
     {
         $this->basket = $basket;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
 
         return $this;
     }

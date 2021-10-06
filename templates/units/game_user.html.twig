@@ -1,0 +1,20 @@
+{% block content %}
+    <tr>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Цена</th>
+        <th>Осталось</th>
+        <th>Ссылка</th>
+    </tr>
+    {% for game in games %}
+        <tr>
+            <td><a href="/user/game/{{ game.id }}"> {{ game.id }}</a></td>
+            <td>{{ game.name }}</td>
+            <td>{{ (game.price / 100)|number_format(2, ',', ' ')  }}</td>
+            <td>{{ game.accounts|length }}</td>
+            <td><a href="{{ game.url }}">Разработчик</td>
+{#            <td>{{ game.createdAt|date("d.m.Y") }}</td>#}
+{#            <td>{{ game.updatedAt|date("d.m.Y") }}</td>#}
+        </tr>
+    {% endfor %}
+{% endblock %}
