@@ -1,0 +1,19 @@
+{# {% extends 'base.html.twig' %} #}
+{% extends 'games.html.twig' %}
+
+{% block title %}Basket{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            {{ dump(order) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped mt-3">
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

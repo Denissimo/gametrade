@@ -58,6 +58,11 @@ class Order
      */
     private $baskets;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tarif::class, inversedBy="orders")
+     */
+    private $tarif;
+
     public function __construct()
     {
         $this->baskets = new ArrayCollection();
@@ -154,6 +159,18 @@ class Order
                 $basket->setOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTarif(): ?Tarif
+    {
+        return $this->tarif;
+    }
+
+    public function setTarif(?Tarif $tarif): self
+    {
+        $this->tarif = $tarif;
 
         return $this;
     }

@@ -47,9 +47,17 @@
                     </li>
                 </ul>
                 {% if app.user %}
+
                     <a class="nav-link" href="{{ path('account') }}">
                         {{ app.user.firstname ~ " " ~ app.user.lastname ~ " " ~ app.user.username }}
                     </a> &nbsp;
+                    {% if order is defined and order is not empty %}
+                        <a class="nav-link" href="{{ path('user.basket') }}">
+                            <span class="badge bg-warning text-dark">
+                                Корзина {{ (order.amount / 100)|number_format(2, ',', ' ') }} р.
+                            </span>
+                        </a>
+                    {% endif %}
                     <a href="{{ path('app_logout') }}"><button class="btn btn-outline-danger" type="submit">Logout</button></a>
                 {% else %}
                     <a href="{{ path('app_login') }}"> <button class="btn btn-outline-primary" type="submit">Login</button></a>
@@ -60,7 +68,7 @@
     </nav>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('main') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('main') }}">Главная страница</a></li>
 {#            <li class="breadcrumb-item"><a href="{{ path('account') }}">Account</a></li>#}
         </ol>
     </nav>

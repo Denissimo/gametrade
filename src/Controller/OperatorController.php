@@ -139,6 +139,10 @@ class OperatorController extends AbstractController
 
         if ($formTaskDone->isSubmitted() && $formTaskDone->isValid()) {
                 $task->setStatus(Task::STATUS_DONE);
+                $accounts = $task->getAccounts();
+                foreach ($accounts as $account) {
+                    $account->setStatus(Account::STATUS_DONE);
+                }
 
                 $this->getDoctrine()
                   ->getManager()

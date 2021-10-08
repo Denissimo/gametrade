@@ -10,9 +10,9 @@ operator_account_edit:
     path: /operator/account/{id}
     controller: App\Controller\OperatorController::buildAccountEdit
 
-operator_credential_edit:
-    path: /operator/credential/{id}
-    controller: App\Controller\OperatorController::buildCredentialEdit
+user.basket:
+    path: /basket
+    controller: App\Controller\UserController::buildBasket
 
 #task_save:
 #    path: /manager/save/task

@@ -7,6 +7,7 @@ use App\Entity\Basket;
 use App\Entity\Credential;
 use App\Entity\Game;
 use App\Entity\Order;
+use App\Entity\Tarif;
 use App\Entity\Task;
 use App\Entity\Transaction;
 use App\Form\ManagerTaskEditFormType;
@@ -51,18 +52,29 @@ class UserController extends AbstractController
 
     public function buildUser(Request $request)
     {
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
         $games = $this->getDoctrine()
             ->getRepository(Game::class)
             ->findAll();
 
+        $order = $this->getDoctrine()
+            ->getRepository(Order::class)
+            ->findByOwnerAndStatus($user);
+
         return $this->render('user.html.twig', [
-            'games' => $games
+            'games' => $games,
+            'order' => $order,
 
         ]);
     }
 
     public function buildGameDetail(Request $request)
     {
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
         $id = $request->get('id');
         $game = $this->getDoctrine()
             ->getRepository(Game::class)
@@ -72,13 +84,16 @@ class UserController extends AbstractController
             ->getRepository(Account::class)
             ->findByGameAndStatus($game);
 
+        $order = $this->getDoctrine()
+            ->getRepository(Order::class)
+            ->findByOwnerAndStatus($user);
+
         $accountForms = [];
 
         foreach ($accounts as $account) {
-             $formBasket = $this->createForm(
+            $formBasket = $this->createForm(
                 UserAccountAddToBasketFormType::class,
-                    $account)
-            ;
+                $account);
 
             $formBasket->handleRequest($request);
             if ($formBasket->isSubmitted() && $formBasket->isValid()) {
@@ -91,6 +106,7 @@ class UserController extends AbstractController
 
         return $this->render('user_game_detail.html.twig', [
             'game' => $game,
+            'order' => $order,
             'accounts' => $accounts,
             'forms' => $accountForms
         ]);
@@ -112,12 +128,42 @@ class UserController extends AbstractController
 
         $basket = (new Basket())->setOrder($order)
             ->setPrice($account->getPrice());
-        $orderAmount = (int) $order->getAmount();
-        $orderAmount+=$account->getPrice();
-        $order->setAmount($orderAmount);
         $entityManager->persist($basket);
+        $basketList = $order->getBaskets();
+        $basketNumber = $basketList->count() + 1;
+        $tarif = $entityManager->getRepository(Tarif::class)
+            ->findByQuantity($basketNumber);
+        $orderAmount = (int)$order->getAmount();
+        $orderAmount += $account->getPrice();
+        if ($tarif instanceof Tarif) {
+            $orderAmount = 0;
+            $basket->setPrice($tarif->getPriceAccount());
+            $orderAmount += $tarif->getPriceAccount();
+            foreach ($basketList as $basket) {
+                $basket->setPrice($tarif->getPriceAccount());
+                $orderAmount += $tarif->getPriceAccount();
+            }
+        }
+
+        $order->setAmount($orderAmount)
+            ->setTarif($tarif);
         $account->setBasket($basket)
-            ->setStatus(Account::STATUS_SOLD);
+            ->setStatus(Account::STATUS_RESERVED);
+
         $entityManager->flush();
+    }
+
+    public function buildBasket(Request $request)
+    {
+        $entityManager = $this->getDoctrine()
+            ->getManager();
+        /** @var ?User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $order = $entityManager->getRepository(Order::class)
+            ->findByOwnerAndStatus($user);
+
+        return $this->render('user_basket.html.twig', [
+            'order' => $order
+        ]);
     }
 }

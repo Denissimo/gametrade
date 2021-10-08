@@ -22,16 +22,9 @@ class OrderRepository extends ServiceEntityRepository
 
     public function findByOwnerAndStatus(User $owner, int $status = Order::STATUS_NEW)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.owner = :owner')
-            ->andWhere('o.status = :status')
-            ->setParameter('owner', $owner)
-            ->setParameter('status', $status)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getResult()
-            ;
+        return $this->findOneBy(
+            ['owner' => $owner, 'status' => $status]
+        );
     }
 
     // /**

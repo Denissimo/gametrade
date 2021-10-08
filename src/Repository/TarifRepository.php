@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Tarif;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Tarif|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +21,20 @@ class TarifRepository extends ServiceEntityRepository
         parent::__construct($registry, Tarif::class);
     }
 
+    public function findByQuantity(int $number)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        return current($qb->andWhere(
+                $qb->expr()->lte('t.numberOfAccounts', ':number')
+            )
+            ->setParameter('number', $number)
+            ->orderBy('t.numberOfAccounts', 'DESC')
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult())
+            ;
+    }
     // /**
     //  * @return Tarif[] Returns an array of Tarif objects
     //  */
