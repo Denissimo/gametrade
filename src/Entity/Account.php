@@ -18,13 +18,15 @@ class Account
     public const STATUS_RESERVED = 1; //Зарезервирован
     public const STATUS_IN_WORK = 2; //В реботе
     public const STATUS_DONE = 3; //Готов
-    public const STATUS_FROZEN = 4; //Заморожен
+    public const STATUS_SOLD = 4; //Продан
+    public const STATUS_FROZEN = 5; //Заморожен
 
     public static $statuses = [
         self::STATUS_NEW => 'Новый',
         self::STATUS_RESERVED => 'Зарезервирован',
         self::STATUS_IN_WORK => 'В работе',
         self::STATUS_DONE => 'Готов',
+        self::STATUS_SOLD => 'Продан',
         self::STATUS_FROZEN => 'Заморожен'
     ];
 
@@ -119,6 +121,12 @@ class Account
     {
         $this->id = $id;
     }
+
+    public function getStringId(): string
+    {
+        return (string) $this->id;
+    }
+
 
     public function getOwner(): ?User
     {

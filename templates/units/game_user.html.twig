@@ -12,7 +12,7 @@
             <td>{{ game.name }}</td>
             <td>{{ (game.price / 100)|number_format(2, ',', ' ')  }}</td>
             <td>{{ game.accounts|length }}</td>
-            <td><a href="{{ game.url }}">Разработчик</td>
+            <td><a href="{{ game.url }}">Разработчик</a></td>
 {#            <td>{{ game.createdAt|date("d.m.Y") }}</td>#}
 {#            <td>{{ game.updatedAt|date("d.m.Y") }}</td>#}
         </tr>

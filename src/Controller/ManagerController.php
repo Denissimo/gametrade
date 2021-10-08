@@ -78,15 +78,8 @@ class ManagerController extends AbstractController
             return $this->redirectToRoute('manager');
         }
 
-        $all = $request->request->all();
-//        if ($formTaskOffer->isSubmitted() && $formTaskOffer->isValid()) {
-//
-//        }
-//        $formTaskOffer->handleRequest($request);
-
         return $this->render('manager.html.twig', [
             'tasks' => $tasks,
-//            'form_task_offer' => $formTaskOffer->createView(),
             'form_task_add' => $formTaskAdd->createView(),
             'operators' => $operators
         ]);

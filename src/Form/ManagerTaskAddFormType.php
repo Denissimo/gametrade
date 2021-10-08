@@ -31,7 +31,6 @@ class ManagerTaskAddFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('id', HiddenType::class)
             ->add('name', null,[
                     'attr' => ['class' => 'form-control'],
                 ]

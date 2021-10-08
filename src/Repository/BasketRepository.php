@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Basket;
+use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +19,17 @@ class BasketRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Basket::class);
+    }
+
+    public function findByOrder(Order $order)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.order = :order')
+            ->setParameter('order', $order)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

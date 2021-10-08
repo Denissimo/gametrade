@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Account;
+use App\Entity\Game;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,6 +31,25 @@ class AccountRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function findByGameAndStatus(Game $game, $statuses = [
+        Account::STATUS_DONE
+    ])
+    {
+        $qb = $this->createQueryBuilder('a');
+        return $qb
+            ->andWhere('a.game = :game')
+            ->andWhere(
+                $qb->expr()->in('a.status', ':statuses')
+            )
+            ->setParameter('game', $game)
+            ->setParameter('statuses', $statuses)
+            ->orderBy('a.updatedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Account[] Returns an array of Account objects
     //  */

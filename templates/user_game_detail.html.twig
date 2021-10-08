@@ -1,0 +1,30 @@
+{# {% extends 'base.html.twig' %} #}
+{% extends 'games.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card text-center">
+                <div class="card-header">
+                    {{ game.name }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ game.description }}</p>
+                </div>
+                <div class="card-footer text-muted text-right">
+                    <a href="{{ game.url }}">Сайт разработчика</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped mt-3">
+                {% include 'units/account_user.html.twig'  with {'accounts': accounts, 'forms': forms} %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

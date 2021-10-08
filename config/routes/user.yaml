@@ -2,9 +2,9 @@ user:
     path: /user
     controller: App\Controller\UserController::buildUser
 
-operator_task_edit:
-    path: /operator/task/{id}
-    controller: App\Controller\OperatorController::buildTaskEdit
+user.account.detail:
+    path: /user/game/{id}
+    controller: App\Controller\UserController::buildGameDetail
 
 operator_account_edit:
     path: /operator/account/{id}

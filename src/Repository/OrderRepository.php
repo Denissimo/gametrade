@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,20 @@ class OrderRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Order::class);
+    }
+
+    public function findByOwnerAndStatus(User $owner, int $status = Order::STATUS_NEW)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.owner = :owner')
+            ->andWhere('o.status = :status')
+            ->setParameter('owner', $owner)
+            ->setParameter('status', $status)
+            ->orderBy('o.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -11,6 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
+    public const STATUS_NEW = 0;
+    public const STATUS_DONE = 1;
+    public const STATUS_CANCEL = 2;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,11 +38,13 @@ class Order
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -43,6 +52,16 @@ class Order
      * @ORM\Column(type="integer")
      */
     private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="order", orphanRemoval=true)
+     */
+    private $baskets;
+
+    public function __construct()
+    {
+        $this->baskets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +124,36 @@ class Order
     public function setStatus(int $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets[] = $basket;
+            $basket->setOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        if ($this->baskets->removeElement($basket)) {
+            // set the owning side to null (unless already changed)
+            if ($basket->getOrder() === $this) {
+                $basket->setOrder(null);
+            }
+        }
 
         return $this;
     }
