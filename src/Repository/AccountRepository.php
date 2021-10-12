@@ -33,7 +33,7 @@ class AccountRepository extends ServiceEntityRepository
     }
 
     public function findByGameAndStatus(Game $game, $statuses = [
-        Account::STATUS_DONE
+        Account::STATUS_READY
     ])
     {
         $qb = $this->createQueryBuilder('a');

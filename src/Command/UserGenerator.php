@@ -118,7 +118,7 @@ class UserGenerator extends Command
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Number of managers',
-                5
+                2
             )
             ->addOption(
                 'password',

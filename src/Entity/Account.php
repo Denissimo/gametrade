@@ -17,15 +17,17 @@ class Account
     public const STATUS_NEW = 0; //Новый
     public const STATUS_RESERVED = 1; //Зарезервирован
     public const STATUS_IN_WORK = 2; //В реботе
-    public const STATUS_DONE = 3; //Готов
-    public const STATUS_SOLD = 4; //Продан
-    public const STATUS_FROZEN = 5; //Заморожен
+    public const STATUS_DONE = 3; //Создан
+    public const STATUS_READY = 4; //Готов (к продаже)
+    public const STATUS_SOLD = 5; //Продан
+    public const STATUS_FROZEN = 6; //Заморожен
 
     public static $statuses = [
         self::STATUS_NEW => 'Новый',
         self::STATUS_RESERVED => 'Зарезервирован',
         self::STATUS_IN_WORK => 'В работе',
-        self::STATUS_DONE => 'Готов',
+        self::STATUS_DONE => 'Создан',
+        self::STATUS_READY => 'Готов',
         self::STATUS_SOLD => 'Продан',
         self::STATUS_FROZEN => 'Заморожен'
     ];

@@ -202,4 +202,21 @@ class Game
 
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function countAccountsFinal(): int
+    {
+        $ready = 0;
+
+        /** @var Account $account */
+        foreach ($this->accounts as $account) {
+            if ($account->getStatus() == Account::STATUS_READY) {
+                $ready++;
+            }
+        }
+
+        return $ready;
+    }
 }
