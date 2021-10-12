@@ -13,21 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OperatorAccountAddFormType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * ManagerTaskOfferFormType constructor.
-     *
-     * @param EntityManagerInterface $EntityManagerInterface
-     */
-    public function __construct(EntityManagerInterface $EntityManagerInterface)
-    {
-        $this->entityManager = $EntityManagerInterface;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

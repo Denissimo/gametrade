@@ -21,21 +21,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ManagerTaskOfferFormType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * ManagerTaskOfferFormType constructor.
-     *
-     * @param EntityManagerInterface $EntityManagerInterface
-     */
-    public function __construct(EntityManagerInterface $EntityManagerInterface)
-    {
-        $this->entityManager = $EntityManagerInterface;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
